@@ -2,8 +2,8 @@ const Product = require("../models/product");
 const formidable = require("formidable");
 const _ = require("lodash");
 const fs = require("fs");
-const product = require("../models/product");
 const category = require("../models/category");
+const { sortBy } = require("lodash");
 
 exports.getProductById = (req, res, next, id) => {
   Product.findById(id)
@@ -25,6 +25,24 @@ exports.getProduct = (req, res) => {
   req.product.photo = undefined;
   return res.json(req.product);
 };
+
+// Get All Products i.e Use Limit()
+exports.getAllProducts = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 8;
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id"
+  Product.find()
+    .select("-photo")
+    .populate("category")
+    .sort([[sortBy,"asc"]])
+    .limit(limit)
+    .exec((err, products) => {
+      if (err) {
+        res.status(400).json({ error: "No Products Found!!" });
+      }
+      res.json(products);
+    });
+};
+
 // middleware
 exports.photo = (req, res, next) => {
   if (req.product.photo.data) {
@@ -87,17 +105,33 @@ exports.createProduct = (req, res) => {
 
 // update a product
 exports.updateProduct = (req, res) => {
-  Product.findOneAndUpdate(
-    { _id: req.product._id },
-    { $set: req.body },
-    { new: true, useFindAndModify: false },
-    (err, product) => {
-      if (err || !product) {
-        res.status(400).json({ error: `Product Not Updated ${err}` });
-      }
-      res.json({ product: product });
+  let form = formidable.IncomingForm({ multiples: true });
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, file) => {
+    if (err) {
+      res.status(400).json({ err: "Something Went Wrong!!" });
     }
-  );
+
+    let product = req.product;
+    product = _.extend(product, fields);
+
+    // handle file here
+    if (file.photo) {
+      if (file.photo.size > 3000000) {
+        return res.status(400).json({ error: "File Size is too big!! " });
+      }
+      product.photo.data = fs.readFileSync(file.photo.path);
+      product.photo.contentType = file.photo.type;
+    }
+
+    product.save((err, product) => {
+      if (err) {
+        res.status(400).json({ error: "Updation Failed!!" });
+      }
+      res.json(product);
+    });
+  });
 };
 
 // remove a product
