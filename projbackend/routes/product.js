@@ -7,7 +7,8 @@ const {
   getProduct,
   createProduct,
   updateProduct,
-  removeProduct
+  removeProduct,
+  getAllUniqueCategories,
 } = require("../controllers/product");
 
 router.param("productid", getProductById);
@@ -24,5 +25,8 @@ router.put("/product/:productid", updateProduct);
 
 // delete route
 router.delete("/product/:productid", removeProduct);
+
+router.get("/product/categories", getAllUniqueCategories);
+
 
 module.exports = router;
