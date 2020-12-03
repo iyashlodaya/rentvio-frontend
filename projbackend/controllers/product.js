@@ -29,11 +29,11 @@ exports.getProduct = (req, res) => {
 // Get All Products i.e Use Limit()
 exports.getAllProducts = (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
-  let sortBy = req.query.sortBy ? req.query.sortBy : "_id"
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
   Product.find()
     .select("-photo")
     .populate("category")
-    .sort([[sortBy,"asc"]])
+    .sort([[sortBy, "asc"]])
     .limit(limit)
     .exec((err, products) => {
       if (err) {
@@ -142,5 +142,33 @@ exports.removeProduct = (req, res) => {
       res.status(400).json({ error: `Product Not Deleted Because: ${err}` });
     }
     res.json({ message: `Successfully Deleted Product :=> ${product}` });
+  });
+};
+
+// update stock middleware
+exports.updateStock = (req, res, next) => {
+  let myOperations = req.body.order.products.map((prod) => {
+    return {
+      updateOne: {
+        filter: { _id: prod._id },
+        update: { $inc: { stock: -prod.count, sold: +prod.count } },
+      },
+    };
+  });
+  Product.bulkWrite(myOperations, {}, (err, prods) => {
+    if (err) {
+      res.status(400).json({ error: "BULK OPERATION FAILED" });
+    }
+    console.log("PRODS->", prods);
+    next();
+  });
+};
+
+exports.getAllUniqueCategories = (req, res) => {
+  Product.distinct("category", {}, (err, category) => {
+    if (err) {
+      return res.status(400).json({ error: "No Categories Found!!!" });
+    }
+    res.json(category);
   });
 };
