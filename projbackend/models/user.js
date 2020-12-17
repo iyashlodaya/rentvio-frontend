@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
     },
     contact: {
       type: String,
-      required: true,
+      required: false,
     },
     encry_password: {
       type: String,
@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
     city: { type: String },
     address: { type: String },
     salt: { type: String },
-    privalages: {
+    privilages: {
       type: Number,
       default: 0,
     },
@@ -58,9 +58,6 @@ userSchema
 
 userSchema.methods = {
   authenticate: function (plainpassword) {
-    console.log("Plain Password:-", plainpassword);
-    console.log("Encrypted Password:-", this.encry_password);
-    console.log("Plain Password:-", this.securePassword(plainpassword));
     return this.securePassword(plainpassword) === this.encry_password;
   },
 

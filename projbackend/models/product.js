@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    deposit_amount: {
+    depositAmount: {
       type: Number,
       trim: true,
       required: true,
@@ -29,10 +29,10 @@ const productSchema = new mongoose.Schema(
       ref: "Category",
       required: true,
     },
-    remaining_stock: {
+    remainingStock: {
       type: Number,
     },
-    sold_stock: {
+    soldStock: {
       type: Number,
       default: 0,
     },
