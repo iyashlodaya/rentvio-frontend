@@ -10,7 +10,8 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
-const productRoutes = require("./routes/product")
+const productRoutes = require("./routes/product");
+const orderRoutes = require("./routes/order");
 
 // DB CONNECTION
 mongoose
@@ -29,13 +30,14 @@ app.use(cookieParser());
 app.use(cors());
 
 // PORT
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 // My Routes
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
+app.use("/api", orderRoutes);
 
 // Starting The Server:
 app.listen(port, () => {
