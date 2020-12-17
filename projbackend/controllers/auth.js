@@ -1,14 +1,22 @@
 const User = require("../models/user");
 let jwt = require("jsonwebtoken");
 let expressJwt = require("express-jwt");
+let { check, validationResult } = require("express-validator");
 
 exports.signout = (req, res) => {
-  res.clearCookie("token")
+  res.clearCookie("token");
   res.send("User Signout Succesfully");
 };
 
 exports.signup = (req, res) => {
-  console.log("REQ BODY", req.body);
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+
+  console.log("Sign Up", req.body);
+  console.log("Sign Up", errors);
   const user = new User(req.body);
   user.save((err, user) => {
     if (err) {
@@ -20,6 +28,14 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
   console.log("SIGNIN ROUTE CALLED");
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ error: errors.array()[0].msg });
+  }
+
+  console.log("Errors ", errors);
+
   const { email, password } = req.body;
 
   User.findOne({ email }, (err, user) => {
@@ -42,4 +58,33 @@ exports.signin = (req, res) => {
 
     return res.json({ token, user: { _id, first_name, email, privilages } });
   });
+};
+
+exports.isSignedIn = expressJwt({
+  secret: process.env.SECRET,
+  userProperty: "auth",
+});
+
+exports.isAuthenticated = (req, res, next) => {
+  console.log("IS AUTHENTICATED CALLED");
+   
+  let checker = req.profile && req.auth && req.profile._id.toString() === req.auth._id;
+  console.log(checker)
+  if (!checker) {
+    return res.status(403).json({
+      error: "ACCESS DENIED!! Not Authenticated",
+    });
+  }
+  next();
+};
+
+exports.isAdmin = (req, res, next) => {
+  console.log("IS ADMIN CALLED");
+  if (req.profile.privilages === 0) {
+    return res.status(403).json({
+      error: " Access Denied! You don't have admin privilages.",
+    });
+  }
+
+  next();
 };

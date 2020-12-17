@@ -5,6 +5,9 @@ const fs = require("fs");
 const category = require("../models/category");
 const { sortBy } = require("lodash");
 
+
+
+
 exports.getProductById = (req, res, next, id) => {
   Product.findById(id)
     .populate("category")
@@ -31,7 +34,7 @@ exports.getAllProducts = (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 8;
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
   Product.find()
-    .select("-photo")
+    .select("photo")
     .populate("category")
     .sort([[sortBy, "asc"]])
     .limit(limit)
@@ -54,33 +57,38 @@ exports.photo = (req, res, next) => {
 
 // Create a Product
 exports.createProduct = (req, res) => {
+  console.log("Create Product Called");
   let form = formidable.IncomingForm({ multiples: true });
   form.keepExtensions = true;
 
+  console.log("Before Parse");
   form.parse(req, (err, fields, file) => {
     if (err) {
-      res.status(400).json({ err: "Something Went Wrong!!" });
+      res.status(400).json({ error: "Something Went Wrong!!" });
     }
+
+    console.log("After Parse");
 
     const {
       name,
       description,
       price,
-      deposit_amount,
+      depositAmount,
       category,
-      remaining_stock,
+      remainingStock,
       color,
+      
     } = fields;
 
     if (
       !name ||
       !description ||
       !price ||
-      !deposit_amount ||
+      !depositAmount ||
       !category ||
-      !remaining_stock ||
-      !color
-    ) {
+      !remainingStock ||
+      !color 
+    ){
       return res.status(400).json({ error: "Please include All the fields" });
     }
 
@@ -94,6 +102,7 @@ exports.createProduct = (req, res) => {
       product.photo.data = fs.readFileSync(file.photo.path);
       product.photo.contentType = file.photo.type;
     }
+
     product.save((err, product) => {
       if (err) {
         res.status(400).json({ error: "Product Saving Failed" });
