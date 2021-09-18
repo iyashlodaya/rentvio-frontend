@@ -9,9 +9,15 @@ body {
 }
 
 footer {
-  position: relative;
+  position: fixed;
   bottom: 0px;
   right: 0px;
   left: 0px;
   width: 100%;
+  background-color: #FF7F50;
+  color: white;
+}
+
+footer.contact-button {
+  color: #FCFFA6;
 }

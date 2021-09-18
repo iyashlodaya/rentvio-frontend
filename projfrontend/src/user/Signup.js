@@ -63,6 +63,7 @@ const SignUp = () => {
                 className="form-control"
                 value={email}
                 type="email"
+                placeholder="Enter your email"
               />
             </div>
             <div className="form-group">
@@ -72,6 +73,7 @@ const SignUp = () => {
                 className="form-control"
                 type="password"
                 value={password}
+                placeholder="Enter password"
               />
             </div>
             <button onClick={onSubmit} className="btn btn-success btn-block">
