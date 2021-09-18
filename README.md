@@ -1,3 +1,4 @@
 # rentvio
+Simple React App which enables you to rent furniture!
 
-#This is app build in MERN Stack - (Reactjs, Nodejs, MongoDB, Expressjs)
+Tech Stack - MERN (MongoDB, Express, ReactJs, NodeJs)
