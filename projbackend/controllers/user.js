@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const Order = require("../models/order");
+const {Order} = require("../models/order");
 
 
 exports.getUserById = (req, res, next, id) => {
@@ -40,6 +40,8 @@ exports.updateUser = (req, res) => {
 };
 
 exports.userPurchaseList = (req, res) => {
+  console.log('Inside User Purchase List');
+  Order
   Order.find({ user: req.profile._id })
     .populate("user", "_id first_name email")
     .exec((err, order) => {
