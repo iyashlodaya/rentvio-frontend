@@ -107,7 +107,8 @@ exports.createProduct = (req, res) => {
       if (err) {
         res.status(400).json({ error: "Product Saving Failed" });
       }
-      res.json(product);
+      console.log('Product Saved Successfuly!')
+      res.json({product});
     });
   });
 };

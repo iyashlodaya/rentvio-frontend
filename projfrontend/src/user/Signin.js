@@ -80,45 +80,46 @@ const SignIn = () => {
 
   const signInForm = () => {
     return (
-      <div className="row">
-        <div className="col-md-4 offset-sm-4 text-left">
-          <form>
-            <div className="form-group">
-              <label className="text-light">Email</label>
-              <input
-                value={email}
-                placeholder="eg. johndoe@yahoo.com"
-                onChange={handleChange("email")}
-                className="form-control"
-                type="email"
-              />
-            </div>
-            <div className="form-group">
-              <label className="text-light">Password</label>
-              <input
-                value={password}
-                placeholder="Enter your password"
-                onChange={handleChange("password")}
-                className="form-control"
-                type="password"
-              />
-            </div>
-            <button onClick={onSubmit} className="btn btn-success btn-block">
-              Submit
-            </button>
-          </form>
+      <div className="container-fluid pb-4">
+        <div className="row">
+          <div className="col-md-4 offset-sm-4 text-left">
+            <form>
+              <div className="form-group">
+                <label className="text-light">Email</label>
+                <input
+                  value={email}
+                  placeholder="eg. johndoe@yahoo.com"
+                  onChange={handleChange("email")}
+                  className="form-control"
+                  type="email"
+                />
+              </div>
+              <div className="form-group">
+                <label className="text-light">Password</label>
+                <input
+                  value={password}
+                  placeholder="Enter your password"
+                  onChange={handleChange("password")}
+                  className="form-control"
+                  type="password"
+                />
+              </div>
+              <button onClick={onSubmit} className="btn btn-success btn-block">
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     );
   };
 
   return (
-    <Base title="SignIn Page">
-      {loadingMessage()}
+    <Base title="SignIn Page" className="signIn bg-dark text-white">
       {errorMessage()}
       {signInForm()}
+      {loadingMessage()}
       {performRedirect()}
-      <h6 className="text-warning">{JSON.stringify(values)}</h6>
     </Base>
   );
 };

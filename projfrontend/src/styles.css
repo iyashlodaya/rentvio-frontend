@@ -3,13 +3,20 @@
 .nav :hover {
   border-radius: 0px;
 }
+.signIn {
+  min-height: 100%;
+  padding-top: 15rem;
+  padding-bottom: 22.3rem;
 
-body {
-  background: #343a40;
 }
+.signUp {
+  min-height: 100%;
+  padding-top: 11.11rem;
+  padding-bottom: 19.15rem;
 
+}
 footer {
-  position: fixed;
+  position: relative;
   bottom: 0px;
   right: 0px;
   left: 0px;
