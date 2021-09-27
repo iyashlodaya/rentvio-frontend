@@ -58,7 +58,7 @@ const SignUp = () => {
               </div>
 
               <div className="form-group">
-                <label className="text-light">Email</label>
+                <label className="text-dark">Email</label>
                 <input
                   onChange={handleChange("email")}
                   className="form-control"
@@ -68,7 +68,7 @@ const SignUp = () => {
                 />
               </div>
               <div className="form-group">
-                <label className="text-light">Password</label>
+                <label className="text-dark">Password</label>
                 <input
                   onChange={handleChange("password")}
                   className="form-control"
@@ -111,7 +111,7 @@ const SignUp = () => {
   };
 
   return (
-    <Base title="Signup Page" className="signUp bg-dark text-white">
+    <Base title="Signup Page" className="signUp text-dark">
       {successMessage()}
       {errorMessage()}
       {signUpForm()}

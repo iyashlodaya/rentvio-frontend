@@ -85,7 +85,7 @@ const SignIn = () => {
           <div className="col-md-4 offset-sm-4 text-left">
             <form>
               <div className="form-group">
-                <label className="text-light">Email</label>
+                <label className="text-dark">Email</label>
                 <input
                   value={email}
                   placeholder="eg. johndoe@yahoo.com"
@@ -95,7 +95,7 @@ const SignIn = () => {
                 />
               </div>
               <div className="form-group">
-                <label className="text-light">Password</label>
+                <label className="text-dark">Password</label>
                 <input
                   value={password}
                   placeholder="Enter your password"
@@ -115,7 +115,7 @@ const SignIn = () => {
   };
 
   return (
-    <Base title="SignIn Page" className="signIn bg-dark text-white">
+    <Base title="SignIn Page" className="signIn text-dark">
       {errorMessage()}
       {signInForm()}
       {loadingMessage()}
