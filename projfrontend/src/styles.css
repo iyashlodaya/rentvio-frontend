@@ -7,13 +7,14 @@
   min-height: 100%;
   padding-top: 15rem;
   padding-bottom: 22.3rem;
-
 }
 .signUp {
   min-height: 100%;
   padding-top: 11.11rem;
   padding-bottom: 19.15rem;
-
+}
+.categories .card {
+  cursor: pointer;
 }
 footer {
   position: relative;
@@ -21,10 +22,10 @@ footer {
   right: 0px;
   left: 0px;
   width: 100%;
-  background-color: #FF7F50;
+  background-color: #ff7f50;
   color: white;
 }
 
 footer.contact-button {
-  color: #FCFFA6;
+  color: #fcffa6;
 }
