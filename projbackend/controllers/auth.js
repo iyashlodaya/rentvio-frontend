@@ -1,3 +1,4 @@
+require("dotenv").config();
 const User = require("../models/user");
 let jwt = require("jsonwebtoken");
 let expressJwt = require("express-jwt");
