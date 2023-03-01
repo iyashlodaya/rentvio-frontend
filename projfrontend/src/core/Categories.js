@@ -16,7 +16,7 @@ const CategoryCard = ({children,categoryName="Chairs"}) => {
               {children}
           </span>
         </div>
-        <div class="card-body">
+        <div className="card-body">
         <p style={{textAlign:"center", marginTop:"64px", fontSize:"14px"}}>{categoryName}</p>
         </div>
       </div>

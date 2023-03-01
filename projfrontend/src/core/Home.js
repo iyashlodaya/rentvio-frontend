@@ -1,8 +1,8 @@
 import React from "react";
 import "../styles.css";
 import Base from "./Base";
-import photo from "../images/unsplash.jpg"
-import couchPhoto from "../images/couch.jpg"
+import photo from "./couch.jpg"
+import couchPhoto from "./unsplash.jpg"
 import Categories from "./Categories";
 
 const Home = () => {
@@ -26,7 +26,7 @@ const Home = () => {
         <div className="randomProducts row">
           {products.map((product, index) => {
             return (
-              <div className="col m-0 p-0 text-center d-flex justify-content-center">
+              <div key={index} className="col m-0 p-0 text-center d-flex justify-content-center">
                 <div className="card m-2" style={{ width: "16rem" }}>
                   <img
                     className="card-img-top"
@@ -38,7 +38,7 @@ const Home = () => {
                     <p className="card-text">₹550</p>
                     <a
                       href="https://www.google.com"
-                      class="btn btn-outline-primary"
+                      className="btn btn-outline-primary"
                     >
                       View More
                     </a>

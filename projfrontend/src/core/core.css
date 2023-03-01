@@ -1,0 +1,30 @@
+.navbar .nav {
+    justify-content: space-between;
+}
+
+#signup-btn {
+    border-radius: 8px;
+}
+
+#signup-btn:hover {
+    border-radius: 8px;
+}
+
+#login-btn {
+    border-radius: 8px;
+}
+
+#login-btn:hover {
+    border-radius: 8px;
+}
+
+.login-section {
+    display: flex;
+    width: 12%;
+    justify-content: space-between;
+}
+
+.modal-header {
+    flex-direction: column;
+    border-bottom: 0px;
+}
