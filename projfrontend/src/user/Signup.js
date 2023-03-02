@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Base from "../core/Base";
 import { signup } from "../auth/helper/index";
+import "../user/css/signup.css"
+import signupIllustration from "./sign-up-page-illustration.png"
+import logo from "../logo.png"
 
 const SignUp = () => {
   const [values, setValues] = useState({
@@ -41,45 +43,63 @@ const SignUp = () => {
 
   const signUpForm = () => {
     return (
-      <div className="container-fluid">
+      <div className="container">
+        <CustomNavBar></CustomNavBar>
         <div className="row">
-          <div className="col-md-4 offset-sm-4 text-left">
+          <div className="col-6 left-section">
+            <h3 className="left-section-heading">Rent furniture with an ease of comfort.</h3>
+            <h6 className="left-section-sub-heading">Our Registration process is quick, taking no more than 2 minutes to complete</h6>
+            <img src={signupIllustration} alt="signup-page" className="sign-up-image"></img>
+          </div>
+          <div className="col-6 right-section">
+            <h3 className="right-section-heading"> Get started</h3>
+            <h6 className="right-section-sub-heading">
+              Signin Up for Rentvio is Fast and 100% free.
+            </h6>
             <form>
-              <div class="form-group">
-                <label for="name">Name</label>
+              <div className="form-group">
+                <label className="form-label" htmlFor="name">
+                  Full name
+                </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
+                  id="full-name"
                   value={first_name}
                   onChange={handleChange("first_name")}
-                  placeholder="Enter your name"
+                  placeholder="Enter your full name."
                 />
               </div>
 
               <div className="form-group">
-                <label className="text-dark">Email</label>
+                <label className="form-label">Email</label>
                 <input
                   onChange={handleChange("email")}
                   className="form-control"
                   value={email}
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="e.g. john.doe@rentvio.com"
                 />
               </div>
               <div className="form-group">
-                <label className="text-dark">Password</label>
+                <label className="form-label">Password</label>
                 <input
                   onChange={handleChange("password")}
                   className="form-control"
                   type="password"
                   value={password}
-                  placeholder="Enter password"
+                  placeholder="Enter password."
                 />
               </div>
-              <button onClick={onSubmit} className="btn btn-success btn-block">
-                Submit
-              </button>
+              <div className="form-group">
+                <button onClick={onSubmit} className="btn sign-up-btn">
+                  Sign Up
+                </button>
+              </div>
+
+              <div className="form-footer-section">
+                <h6>Have an account? <Link to="/login">Login.</Link></h6>
+              </div>
             </form>
           </div>
         </div>
@@ -110,13 +130,18 @@ const SignUp = () => {
     );
   };
 
+  const CustomNavBar = () => {
+    return ( <div>
+      <img src={logo} width={120} />
+    </div> );
+  }
+
   return (
-    <Base title="Signup Page" className="signUp text-dark">
+    <div id="Signup Page" className="signUp text-dark">
       {successMessage()}
       {errorMessage()}
       {signUpForm()}
-      <h6 className="text-white text-center">{JSON.stringify(values)}</h6>
-    </Base>
+    </div>
   );
 };
 
