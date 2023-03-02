@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,200;1,300&family=Raleway:wght@100;200;300;400;500;600&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300&display=swap');
+
 .btn,
 .jumbotron,
 .nav :hover {
@@ -7,11 +9,6 @@
   min-height: 100%;
   padding-top: 15rem;
   padding-bottom: 22.3rem;
-}
-.signUp {
-  min-height: 100%;
-  padding-top: 11.11rem;
-  padding-bottom: 19.15rem;
 }
 .categories .card {
   cursor: pointer;

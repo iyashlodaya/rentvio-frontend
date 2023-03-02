@@ -19,11 +19,11 @@ const Routes = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/login" component={SignIn} />
         <AdminRoute exact path="/admin/dashboard" component={AdminDashBoard} />
         <AdminRoute exact path="/admin/create/category" component={AddCategory} />
         <AdminRoute exact path="/admin/create/product" component={AddProduct} />
-        <PrivateRoute exact path="/user/dashboard" component={UserDashBoard} />
+        <Route exact path="/user/dashboard" component={UserDashBoard} />
         <PrivateRoute exact path="/profile" component={Profile} />
       </Switch>
     </BrowserRouter>
