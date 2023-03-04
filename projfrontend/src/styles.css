@@ -5,11 +5,6 @@
 .nav :hover {
   border-radius: 0px;
 }
-.signIn {
-  min-height: 100%;
-  padding-top: 15rem;
-  padding-bottom: 22.3rem;
-}
 .categories .card {
   cursor: pointer;
 }

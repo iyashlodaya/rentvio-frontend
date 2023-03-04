@@ -27,6 +27,16 @@
     margin-right: auto;
 }
 
+.sign-in-image {
+    padding-top: 2rem;
+    padding-left: 6rem;
+    padding-bottom: 4rem;
+    width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .right-section {
     padding-left: 4rem;
     padding-right: 4rem;
@@ -56,9 +66,17 @@
 }
 
 .form-label {
-    color: #9DA0A6;
+    color: #101721;
     font-size: 14px;
     font-weight: 500;
+}
+
+.form-label-error {
+    font-weight: 500;
+    font-size: 12px;
+    float: right;
+    margin-top: 0.4rem;
+    color: rgb(249, 87, 87);
 }
 
 .form-control {
@@ -72,10 +90,11 @@
 }
 
 .form-group {
+    width: 480px;
     padding-top: 16px;
 }
 
-.sign-up-btn {
+.sign-up-sign-in-btn {
     margin-top: 24px;
     background-color: #5271FF;
     color: #fff;
@@ -83,8 +102,26 @@
     height: 48px;
     width: 480px;
 }
+.sign-up-sign-in-btn:hover {
+    color: #fff;
+    background-color: #5272ffb5;
+}
+
+.google-btn {
+    margin-left: 8rem;
+    margin-right: 8rem;
+}
+
+.hr-break { 
+  margin-bottom: 2px;  
+  width: 480px;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
 
 .form-footer-section {
+    font-weight: lighter;
     margin-top: 24px;
     width: 480px;
     display: flex;
