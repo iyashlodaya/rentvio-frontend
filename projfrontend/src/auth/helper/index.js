@@ -1,15 +1,24 @@
 import { API } from "../../backend";
 
-export const signup = async (user) => {
+export const signup = async (requestData) => {
   try {
+    let user = {
+      first_name: requestData.full_name,
+      email: requestData.email,
+      password: requestData.password
+    }
     const response = await fetch(`${API}/signup`, {
       method: "POST",
       headers: { Accept: "application/json", "Content-Type": "application/json" },
       body: JSON.stringify(user),
     });
-    return await response.json();
+
+    if (response){
+      return await response.json();
+    }
   } catch (err) {
     console.log("ERROR" + err);
+    return {err: "Failed to save user!"};
   }
 };
 
@@ -20,9 +29,12 @@ export const signin = async (user) => {
       headers: { Accept: "application/json", "Content-Type": "application/json" },
       body: JSON.stringify(user),
     });
-    return await response.json();
+    if(response) {
+      return await response.json();
+    }
   } catch (err) {
     console.log("ERROR" + err);
+    return {err: "failed to login"}
   }
 };
 
