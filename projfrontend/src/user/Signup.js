@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signup } from "../auth/helper/index";
-import "../user/css/signup.css"
+import "../user/css/user.css"
+import CustomNavBar from "./CustomNavBar";
 import signupIllustration from "./sign-up-page-illustration.png"
-import logo from "../logo.png"
 
 const SignUp = () => {
   const [values, setValues] = useState({
-    first_name: "",
+    full_name: "",
     email: "",
     password: "",
     error: "",
     success: false,
   });
 
-  const { first_name, email, password, error, success } = values;
+  const { full_name, email, password, error, success } = values;
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -22,15 +22,19 @@ const SignUp = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
+    if (!full_name || !email || !password) {
+      setValues({...values, error: 'Some fields are empty', success: false});
+      return;
+    }
     setValues({ ...values, error: false });
-    signup({ first_name, email, password })
+    signup({ full_name, email, password })
       .then((data) => {
-        if (data.error) {
-          setValues({ ...values, error: data.error, success: false });
+        if (data.err) {
+          setValues({ ...values, error: data.err, success: false });
         } else {
           setValues({
             ...values,
-            first_name: "",
+            full_name: "",
             email: "",
             password: "",
             error: "",
@@ -54,19 +58,22 @@ const SignUp = () => {
           <div className="col-6 right-section">
             <h3 className="right-section-heading"> Get started</h3>
             <h6 className="right-section-sub-heading">
-              Signin Up for Rentvio is Fast and 100% free.
+              Sign Up for Rentvio is Fast and 100% free.
             </h6>
             <form>
               <div className="form-group">
                 <label className="form-label" htmlFor="name">
                   Full name
                 </label>
+                {/* <label className="form-label-error" htmlFor="name">
+                  Full Name Error
+                </label> */}
                 <input
                   type="text"
                   className="form-control"
                   id="full-name"
-                  value={first_name}
-                  onChange={handleChange("first_name")}
+                  value={full_name}
+                  onChange={handleChange("full_name")}
                   placeholder="Enter your full name."
                 />
               </div>
@@ -92,15 +99,18 @@ const SignUp = () => {
                 />
               </div>
               <div className="form-group">
-                <button onClick={onSubmit} className="btn sign-up-btn">
+                <button onClick={onSubmit} className="btn sign-up-sign-in-btn">
                   Sign Up
                 </button>
               </div>
 
               <div className="form-footer-section">
-                <h6>Have an account? <Link to="/login">Login.</Link></h6>
+                <h6 style={{fontWeight: "400"}}>Have an account? <Link to="/login">Login.</Link></h6>
               </div>
             </form>
+
+            {errorMessage()}
+            {successMessage()}
           </div>
         </div>
       </div>
@@ -110,11 +120,11 @@ const SignUp = () => {
   const successMessage = () => {
     return (
       <div
-        className="alert alert-success"
-        style={{ display: success ? "" : "none" }}
+        className="alert alert-success mt-4"
+        style={{textAlign: "center", width: "480px", display: success ? "" : "none" }}
       >
         New Account was Created Succesfully!! Please{" "}
-        <Link to="/signin">Login Here!!</Link>
+        <Link to="/login">Login Here!!</Link>
       </div>
     );
   };
@@ -122,24 +132,17 @@ const SignUp = () => {
   const errorMessage = () => {
     return (
       <div
-        className="alert alert-danger"
-        style={{ display: error ? "" : "none" }}
+        className="alert alert-danger mt-4"
+        style={{textAlign: "center", width: "480px", display: error ? "" : "none" }}
       >
         {error}
       </div>
     );
   };
 
-  const CustomNavBar = () => {
-    return ( <div>
-      <img src={logo} width={120} />
-    </div> );
-  }
 
   return (
     <div id="Signup Page" className="signUp text-dark">
-      {successMessage()}
-      {errorMessage()}
       {signUpForm()}
     </div>
   );
