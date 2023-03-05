@@ -2,7 +2,8 @@ import { GoogleLogin } from "@react-oauth/google";
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { authenticate, isAuthenticated, signin } from "../auth/helper/index";
-import CustomNavBar from "./CustomNavBar";
+import Base from "../core/Base";
+import CustomNavBar from "../core/CustomNavBar";
 import signInPageIllustration from "./sign-in-page-illustration.png"
 
 const SignIn = () => {
@@ -85,7 +86,6 @@ const SignIn = () => {
   const signInForm = () => {
     return (
       <div className="container">
-        <CustomNavBar></CustomNavBar>
         <div className="row">
           <div className="col-6 left-section">
             <h3 className="left-section-heading">Rent furniture with an ease of comfort.</h3>
@@ -141,12 +141,12 @@ const SignIn = () => {
   };
 
   return (
-    <div className="signIn">
+    <Base navbar={true} className="signIn">
       {errorMessage()}
       {signInForm()}
       {/* {loadingMessage()} */}
       {performRedirect()}
-    </div>
+    </Base>
   );
 };
 

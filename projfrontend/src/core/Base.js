@@ -1,17 +1,21 @@
 import React from "react";
+import CustomNavBar from "./CustomNavBar";
 import Footer from "./footer";
-import NavBar from "./navbar";
 
 
 const Base = ({
   className = "p-5 text-dark",
   children,
+  navbar,
+  footer
 }) => {
+  // console.log('BASE: Props: Navbar', navbar)
+  // console.log('BASE: Props: footer', footer)
   return (
     <div>
-      <NavBar />
+      {navbar && <CustomNavBar/>}
       <div className={className}>{children}</div>
-      <Footer />
+      {footer && <Footer />}
     </div>
   );
 };

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signup } from "../auth/helper/index";
 import "../user/css/user.css"
-import CustomNavBar from "./CustomNavBar";
+import CustomNavBar from "../core/CustomNavBar";
 import signupIllustration from "./sign-up-page-illustration.png"
+import Base from "../core/Base";
 
 const SignUp = () => {
   const [values, setValues] = useState({
@@ -48,7 +49,6 @@ const SignUp = () => {
   const signUpForm = () => {
     return (
       <div className="container">
-        <CustomNavBar></CustomNavBar>
         <div className="row">
           <div className="col-6 left-section">
             <h3 className="left-section-heading">Rent furniture with an ease of comfort.</h3>
@@ -142,9 +142,9 @@ const SignUp = () => {
 
 
   return (
-    <div id="Signup Page" className="signUp text-dark">
+    <Base navbar={true} id="Signup Page" className="signUp text-dark">
       {signUpForm()}
-    </div>
+    </Base>
   );
 };
 
