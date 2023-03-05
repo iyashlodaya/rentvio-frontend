@@ -3,19 +3,13 @@
 }
 
 #signup-btn {
-    border-radius: 8px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #5271FF;
 }
 
 #signup-btn:hover {
-    border-radius: 8px;
-}
-
-#login-btn {
-    border-radius: 8px;
-}
-
-#login-btn:hover {
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 .login-section {
@@ -23,3 +17,8 @@
     width: 12%;
     justify-content: space-between;
 }
+
+.carousal-inner {
+    border-radius: 0.5rem;
+}
+
