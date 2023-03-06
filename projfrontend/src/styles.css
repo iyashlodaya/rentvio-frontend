@@ -3,14 +3,7 @@
 * {
   font-family: 'Fira Sans', sans-serif;
 }
-.btn,
-.jumbotron,
-.nav :hover {
-  border-radius: 0px;
-}
-.categories .card {
-  cursor: pointer;
-}
+
 footer {
   position: relative;
   bottom: 0px;

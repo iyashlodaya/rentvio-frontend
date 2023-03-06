@@ -4,7 +4,7 @@ import Footer from "./footer";
 
 
 const Base = ({
-  className = "p-5 text-dark",
+  className = "p-3",
   children,
   navbar,
   footer

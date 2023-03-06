@@ -46,21 +46,20 @@ const renderCarousalForHeroSection = () => {
 const Home = () => {
   // const products = [1, 2, 3,4,5,6,7,8];
   return (
-    <Base navbar={true} footer={false} className="pt-1">
+    <Base navbar={true} footer={false} >
       <div className="container">
         <div className="row">
           <div className="col p-0">
             {renderCarousalForHeroSection()}
-            {/* <img
-              src={photo}
-              alt="..."
-              className="rounded img-fluid w-100"
-              style={{ height: "500px", objectFit: "cover" }}
-            /> */}
           </div>
         </div>
 
-          {/* <Categories/> */}
+          <div className="text-center pt-4">
+            <h2 style={{color:'#101721'}}>Browse by category</h2>
+            <h4 style={{color:'#8D8E91', fontWeight: '300'}}>Furniture rentals for your home and office.</h4>
+          </div>
+
+          <Categories/>
 
         {/* <div className="randomProducts row">
           {products.map((product, index) => {
