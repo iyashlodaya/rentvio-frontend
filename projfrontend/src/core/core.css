@@ -3,10 +3,20 @@
 }
 
 #signup-btn {
+    width: 72px;
     border-radius: 4px;
     color: #fff;
     background-color: #5271FF;
 }
+
+#login-btn {
+    width: 72px;
+    border-radius: 4px;
+    color:#5271FF;
+    border: 1px solid #5271FF;
+}
+
+
 
 #signup-btn:hover {
     border-radius: 4px;
@@ -22,3 +32,73 @@
     border-radius: 0.5rem;
 }
 
+.product-section {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.product-section::-webkit-scrollbar {
+    display: none;
+}
+
+#nav-btn {
+    border: 1px solid #5271FF;
+    border-radius: 65%;
+    height: 40px;
+    width: 40px;
+    margin-left: 8px;
+    color: #5271FF;
+}
+
+#nav-btn:hover {
+    background-color: #5271FF;
+    color: #fff;
+}
+
+
+#add-to-cart-btn {
+    border: 1px solid #5271FF;
+    color: #5271FF;
+    width: 100px;
+    height: 40px;
+}
+
+#add-to-cart-btn:hover {
+    background-color: #5271FF;
+    color: #fff;
+}
+
+footer {
+    position: relative;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: 100%;
+    height: max-content;
+    background-color: #5271FF;
+    color: white;
+}
+
+.footer-menu-header {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.footer-menu-item {
+    font-size: 12px;
+}
+
+.footer-hr-break {
+    margin-bottom: 2px;  
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+  }
