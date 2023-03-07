@@ -1,12 +1,59 @@
 import React from "react";
 
 const Footer = () => (
-  <div>
-    <footer className="footer text-center pb-2">
-      <h4>
-        If you got any questions, feel free to reach-out
-      </h4>
-      <button className="btn btn-info">Contact Us!</button>
+  <div style={{ paddingTop: "120px" }}>
+    <footer className="footer pb-2">
+      <div className="container p-4">
+        <div className="row">
+          <div className="col p-0">
+            <h6 className="footer-menu-header">Rentvio</h6>
+            <p className="footer-menu-item pt-3 mb-2">About Us</p>
+            <p className="footer-menu-item mb-2">Culture</p>
+            <p className="footer-menu-item mb-2">Careers</p>
+            <p className="footer-menu-item mb-2">News</p>
+            <p className="footer-menu-item mb-2">Contact</p>
+          </div>
+          <div className="col p-0">
+            <h6 className="footer-menu-header">Resources</h6>
+            <p className="footer-menu-item pt-3 mb-2">Blog</p>
+            <p className="footer-menu-item mb-2">Events</p>
+            <p className="footer-menu-item mb-2">Support </p>
+            <p className="footer-menu-item mb-2">Help Center</p>
+          </div>
+          <div className="col p-0">
+            <h6 className="footer-menu-header">Social</h6>
+            <p className="footer-menu-item pt-3 mb-2">Twitter</p>
+            <p className="footer-menu-item mb-2">LinkedIn</p>
+            <p className="footer-menu-item mb-2">Facebook </p>
+            <p className="footer-menu-item mb-2">Github</p>
+            <p className="footer-menu-item mb-2">Dribbble</p>
+          </div>
+          <div className="col p-0">
+            <h6 className="footer-menu-header">Legal</h6>
+            <p className="footer-menu-item pt-3 mb-2">Terms</p>
+            <p className="footer-menu-item mb-2">Privacy</p>
+            <p className="footer-menu-item mb-2">Cookies </p>
+            <p className="footer-menu-item mb-2">Licenses</p>
+          </div>
+        </div>
+        <div className="row" style={{paddingTop: "2rem", paddingLeft: 0}}>
+          <hr className="footer-hr-break"></hr>
+          <div id="copyright-section" className="p-0 d-flex justify-content-between">
+            <h6 className="pt-4 footer-menu-header">
+              <i className="fa fa-copyright"></i>
+              <span> 2023. Rentvio Y.L. Pvt. Ltd.</span>
+            </h6>
+
+            <div id="socials" className="pt-4 mb-2 d-flex justify-content-between" style={{width: '160px'}}>
+              <i className="fa fa-twitter"></i>
+              <i className="fa fa-linkedin"></i>
+              <i className="fa fa-facebook"></i>
+              <i className="fa fa-github"></i>
+              <i className="fa fa-dribbble"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
   </div>
 );

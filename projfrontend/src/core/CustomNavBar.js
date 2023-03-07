@@ -24,7 +24,7 @@ export default function CustomNavBar() {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
-              style={{height: 42}}
+              style={{height: 40, width:320, fontSize: '14px'}}
             />
             {/* <Button className=''>Search</Button> */}
           </Form>
@@ -32,6 +32,9 @@ export default function CustomNavBar() {
           <Nav className="d-flex float-right login-section">
             <Nav.Link
               href='/login'
+              id='login-btn'
+              className='text-center'
+              style={{fontSize: "14px"}}
             >
               Sign In
             </Nav.Link>
@@ -39,6 +42,7 @@ export default function CustomNavBar() {
               id="signup-btn"
               href='/signup'
               className="btn btn-primary"
+              style={{fontSize: "14px"}}
             >
               Register
             </Nav.Link>

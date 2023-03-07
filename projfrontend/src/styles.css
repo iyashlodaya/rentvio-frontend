@@ -4,16 +4,4 @@
   font-family: 'Fira Sans', sans-serif;
 }
 
-footer {
-  position: relative;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
-  width: 100%;
-  background-color: #ff7f50;
-  color: white;
-}
 
-footer.contact-button {
-  color: #fcffa6;
-}

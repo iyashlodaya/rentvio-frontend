@@ -12,11 +12,11 @@ const CategoryCard = ({category}) => {
  
 class Categories extends React.Component {
     render() { 
-        return <div className='d-flex justify-content-center pt-4'>
-            <CategoryCard category={{name: 'Bedroom', imageLink: 'https://images.unsplash.com/photo-1585821569331-f071db2abd8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'}} />
-            <CategoryCard category={{name: 'Living Room', imageLink: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=958&q=80'}} />
-            <CategoryCard category={{name: 'Work From Home', imageLink: 'https://images.unsplash.com/photo-1492138786289-d35ea832da43?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'}} />
-            <CategoryCard category={{name: 'Kitchen', imageLink: 'https://images.unsplash.com/photo-1628843226223-989e20810393?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80'}} />
+        return <div className='d-flex justify-content-center pt-4 pb-4'>
+            <CategoryCard key={0} category={{name: 'Bedroom', imageLink: 'https://images.unsplash.com/photo-1585821569331-f071db2abd8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'}} />
+            <CategoryCard key={1} category={{name: 'Living Room', imageLink: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=958&q=80'}} />
+            <CategoryCard key={2}category={{name: 'Work From Home', imageLink: 'https://images.unsplash.com/photo-1492138786289-d35ea832da43?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'}} />
+            <CategoryCard key={3}category={{name: 'Kitchen', imageLink: 'https://images.unsplash.com/photo-1628843226223-989e20810393?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80'}} />
         </div>;
     }
 }
