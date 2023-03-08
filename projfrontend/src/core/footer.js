@@ -44,12 +44,12 @@ const Footer = () => (
               <span> 2023. Rentvio Y.L. Pvt. Ltd.</span>
             </h6>
 
-            <div id="socials" className="pt-4 mb-2 d-flex justify-content-between" style={{width: '160px'}}>
-              <i className="fa fa-twitter"></i>
-              <i className="fa fa-linkedin"></i>
-              <i className="fa fa-facebook"></i>
-              <i className="fa fa-github"></i>
-              <i className="fa fa-dribbble"></i>
+            <div className="pt-4 mb-2 d-flex justify-content-between" style={{width: '160px'}}>
+              <i className="socials fa fa-twitter"></i>
+              <i className="socials fa fa-linkedin"></i>
+              <i className="socials fa fa-facebook"></i>
+              <i className="socials fa fa-github"></i>
+              <i className="socials fa fa-dribbble"></i>
             </div>
           </div>
         </div>

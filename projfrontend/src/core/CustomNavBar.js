@@ -3,6 +3,7 @@ import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap'
 
 import logo from "../logo.png"
 import "../core/core.css"
+import { signout } from '../auth/helper';
 
 export default function CustomNavBar() {
   return (
@@ -30,6 +31,14 @@ export default function CustomNavBar() {
           </Form>
           </Nav>
           <Nav className="d-flex float-right login-section">
+            <Nav.Link
+              id='singout-btn'
+              className='text-center'
+              style={{fontSize: "14px"}}
+              onClick={()=>{signout()}}
+            >
+              Sign Out
+            </Nav.Link>
             <Nav.Link
               href='/login'
               id='login-btn'
