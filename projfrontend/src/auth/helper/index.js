@@ -2,15 +2,10 @@ import { API } from "../../backend";
 
 export const signup = async (requestData) => {
   try {
-    let user = {
-      first_name: requestData.full_name,
-      email: requestData.email,
-      password: requestData.password
-    }
     const response = await fetch(`${API}/signup`, {
       method: "POST",
       headers: { Accept: "application/json", "Content-Type": "application/json" },
-      body: JSON.stringify(user),
+      body: JSON.stringify(requestData),
     });
 
     if (response){
@@ -39,6 +34,9 @@ export const signin = async (user) => {
 };
 
 export const authenticate = (data, next) => {
+  console.log('Inside Authenticate Method:', data);
+  console.log('window', window)
+  console.log('typeof window', typeof window)
   if (typeof window !== "undefined") {
     localStorage.setItem("jwt", JSON.stringify(data));
     next();

@@ -1,5 +1,5 @@
 import { GoogleLogin } from "@react-oauth/google";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { authenticate, isAuthenticated, signin } from "../auth/helper/index";
 import Base from "../core/Base";
@@ -11,42 +11,73 @@ const SignIn = () => {
     email: "",
     password: "",
     error: "",
-    loading: false,
     didRedirect: false,
   });
 
-  const { email, password, error, loading, didRedirect } = values;
+  let emailRef = useRef("")
+  let passwordRef = useRef("")
+
+  const { email, password, error, didRedirect } = values;
   const { user } = isAuthenticated();
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
-  const onSubmit = (event) => {
+  const handleValidation = () => {
+    let result = false;
+    if (!email) {
+      setValues({
+        ...values,
+        error: "Email address should not be blank",
+      });
+      emailRef.current.focus();
+    } else if (!password) {
+      setValues({
+        ...values,
+        error: `Password shouldn't be blank.`,
+      });
+      passwordRef.current.focus();
+    } else {
+      // console.log("no errors in validation.");
+      result = true;
+    }
+    return result;
+  };
+
+  const onSubmit = async (event) => {
     event.preventDefault();
-    setValues({ ...values, error: false, loading: true });
-    signin({ email, password })
-      .then((data) => {
-        if (data.err) {
-          console.log('fail')
-          setValues({ ...values, error: data.error, loading: false });
+    // console.log("OnSubmit Clicked!");
+
+    const validationResponse = handleValidation();
+
+    if (!validationResponse) {
+      return;
+    } else {
+      setValues({ ...values, error: false });
+
+      const signInResponse = await signin({ email, password });
+
+      if (!signInResponse) {
+        // console.log("Error in SignIn!", signInResponse);
+      } else {
+        if (signInResponse.error) {
+          // console.log("SignIn API Error Response. ", signInResponse);
+          setValues({ ...values, error: signInResponse.error });
         } else {
-          console.log('Succesful')
-          authenticate(data, () => {
+          // console.log("SignIn API Success Response. ", signInResponse);
+          authenticate(signInResponse, () => {
             setValues({
               ...values,
               didRedirect: true,
               error: "",
-              loading: true,
               email: "",
               password: "",
             });
           });
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      }
+    }
   };
 
   const performRedirect = () => {
@@ -58,19 +89,10 @@ const SignIn = () => {
       }
     }
     if (isAuthenticated()) {
-      return <Redirect to="/" />;
+      return <Redirect to="/user/dashboard" />;
     }
   };
 
-  const loadingMessage = () => {
-    return (
-      loading && (
-        <div className="alert alert-info">
-          <h2 className="text-warning">Loading...</h2>
-        </div>
-      )
-    );
-  };
 
   const errorMessage = () => {
     return (
@@ -88,7 +110,7 @@ const SignIn = () => {
       <div className="container">
         <div className="row">
           <div className="col-6 left-section">
-            <h3 className="left-section-heading">Rent furniture with an ease of comfort.</h3>
+            <h3 className="left-section-heading">Rent furniture and appliances with an ease of comfort.</h3>
             <h6 className="left-section-sub-heading">Sign in to get the exciting deals.</h6>
             <img src={signInPageIllustration} alt="sign-in-page" className="sign-in-image"></img>
           </div>
@@ -101,6 +123,7 @@ const SignIn = () => {
               <div className="form-group">
                 <label className="form-label">Email</label>
                 <input
+                  ref={emailRef}
                   onChange={handleChange("email")}
                   className="form-control"
                   value={email}
@@ -111,6 +134,7 @@ const SignIn = () => {
               <div className="form-group">
                 <label className="form-label">Password</label>
                 <input
+                  ref={passwordRef}
                   onChange={handleChange("password")}
                   className="form-control"
                   type="password"
@@ -144,7 +168,6 @@ const SignIn = () => {
     <Base navbar={true} className="signIn">
       {errorMessage()}
       {signInForm()}
-      {/* {loadingMessage()} */}
       {performRedirect()}
     </Base>
   );

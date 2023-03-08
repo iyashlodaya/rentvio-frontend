@@ -90,10 +90,16 @@ footer {
     font-size: 14px;
     font-weight: 400;
     letter-spacing: 1px;
+    cursor: pointer;
 }
 
 .footer-menu-item {
     font-size: 12px;
+    cursor: pointer;
+}
+
+.socials {
+    cursor: pointer;
 }
 
 .footer-hr-break {
