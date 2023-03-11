@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Dropdown, DropdownButton, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 import logo from "../logo.png";
+import avatarImg from "../auth/avatar.png";
 import "../core/core.css";
 import { isAuthenticated, signout } from "../auth/helper";
 import { useHistory } from "react-router-dom";
 
 export default function CustomNavBar() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   const history = useHistory();
-
   useEffect(() => {
     const { user } = isAuthenticated();
     if (user) {
-      setLoggedIn(true);
+      setLoggedInUser(user);
     }
   }, []);
 
@@ -49,14 +49,52 @@ export default function CustomNavBar() {
                 </Form>
               }
             </Nav>
-            <Nav.Link id="shopping-bag" className="ms-3 me-3 d-flex flex-row align-items-center text-center" style={{color: "#5271FF", cursor: "pointer"}}>
+            <Nav.Link
+              id="shopping-bag"
+              className="ms-3 me-3 d-flex flex-row align-items-center text-center"
+              style={{ color: "#5271FF", cursor: "pointer" }}
+            >
               <i className="fa fa-shopping-bag fa-lg"></i>
             </Nav.Link>
-            {loggedIn && <Nav.Link id="user-account" className="ms-3 me-3 d-flex flex-row align-items-center text-center" style={{color: "#5271FF", cursor: "pointer"}}>
-              <i class="fa-solid fa-user fa-lg"></i>
-            </Nav.Link>}
+            {
+              loggedInUser && (
+                <>
+                  <Nav>
+                    <NavDropdown
+                      id="user-account-drop-down"
+                      menuVariant="light"
+                      title={
+                        <i
+                          style={{ color: "#5271FF" }}
+                          className="fa-solid fa-user fa-lg"
+                        ></i>
+                      }
+                    >
+                      <NavDropdown.Item className="d-flex flex-row justify-content-space-between align-items-center text-center">
+                        <p className="m-0 pe-5 text-center">Profile</p>
+                        <img src={loggedInUser.picture ? loggedInUser.picture : avatarImg } width={40} style={{borderRadius: "50%"}}/>
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item
+                        onClick={() => {
+                          signout(() => {
+                            setLoggedInUser(null);
+                            history.push("/");
+                          });
+                        }}
+                      >
+                        Signout
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </Nav>
+                </>
+              )
+              // <Nav.Link id="user-account" className="ms-3 me-3 d-flex flex-row align-items-center text-center" style={{color: "#5271FF", cursor: "pointer"}}>
+              //   <i className="fa-solid fa-user fa-lg"></i>
+              // </Nav.Link>
+            }
             <Nav className="login-section">
-              {loggedIn && (
+              {/* {loggedInUser && (
                 <Nav.Link
                   id="signout-btn"
                   className="text-center"
@@ -70,8 +108,8 @@ export default function CustomNavBar() {
                 >
                   Sign Out
                 </Nav.Link>
-              )}
-              {!loggedIn && (
+              )} */}
+              {!loggedInUser && (
                 <Nav.Link
                   href="/login"
                   id="login-btn"
@@ -81,7 +119,7 @@ export default function CustomNavBar() {
                   Sign In
                 </Nav.Link>
               )}
-              {!loggedIn && (
+              {!loggedInUser && (
                 <Nav.Link
                   id="signup-btn"
                   href="/signup"

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { signup } from "../auth/helper/index";
+import { Link, Redirect } from "react-router-dom";
+import { isAuthenticated, signup } from "../auth/helper/index";
 import "../user/css/user.css";
 import CustomNavBar from "../core/CustomNavBar";
 import signupIllustration from "./sign-up-page-illustration.png";
@@ -215,6 +215,12 @@ const SignUp = () => {
     );
   };
 
+  const performRedirect = () => {
+    if (isAuthenticated()) {
+      return <Redirect to="/" />;
+    }
+  };
+
   return (
     <Base>
       <Container className="pt-0 pb-0">
@@ -226,6 +232,7 @@ const SignUp = () => {
         </Navbar>
       </Container>
       {signUpForm()}
+      {performRedirect()}
     </Base>
   );
 };

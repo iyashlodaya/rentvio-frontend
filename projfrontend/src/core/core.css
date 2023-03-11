@@ -6,6 +6,10 @@
     justify-content: space-between;
 }
 
+#user-account-drop-down::after{
+    content: none;
+}
+
 #signout-btn {
     margin-left: 16px;
     width: 72px;

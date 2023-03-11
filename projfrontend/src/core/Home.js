@@ -155,7 +155,7 @@ const Home = () => {
 
 const performRedirect = () => {
   if (isAuthenticated()) {
-    return <Redirect to="/user/dashboard" />;
+    return <Redirect to="/" />;
   }
 };
 
