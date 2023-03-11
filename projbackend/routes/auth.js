@@ -7,6 +7,7 @@ const {
   signin,
   isAuthenticated,
   isSignedIn,
+  signInWithGoogle
 } = require("../controllers/auth");
 
 router.get("/signout", signout);
@@ -32,5 +33,10 @@ router.post(
   ],
   signin
 );
+
+router.post(
+  "/google/signin",
+  signInWithGoogle
+)
 
 module.exports = router;

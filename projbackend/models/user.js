@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema(
     },
     encry_password: {
       type: String,
-      required: true,
+      required: false,
     },
     city: { type: String },
     address: { type: String },
@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    picture: {type: String},
     purchases: {
       type: Array,
       default: [],

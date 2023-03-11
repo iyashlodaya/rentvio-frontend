@@ -3,6 +3,8 @@ const User = require("../models/user");
 let jwt = require("jsonwebtoken");
 let expressJwt = require("express-jwt");
 let { check, validationResult } = require("express-validator");
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 exports.signout = (req, res) => {
   res.clearCookie("token");
@@ -45,7 +47,7 @@ exports.signin = (req, res) => {
     }
     if (!user.authenticate(password)) {
       return res
-        .status(401)
+        .status(400)
         .json({ error: "EMAIL AND PASSWORD DOESNT MATCH!!" });
     }
     // create token
@@ -55,11 +57,74 @@ exports.signin = (req, res) => {
     res.cookie("token", token, { expire: new Date() + 9999 });
 
     // send response to front end
-    const { _id, first_name, email, privilages } = user;
+    const { _id, full_name, email, privilages } = user;
 
-    return res.json({ token, user: { _id, first_name, email, privilages } });
+    return res.json({ token, user: { _id, full_name, email, privilages } });
   });
 };
+
+exports.signInWithGoogle = async (req, res) => {
+    console.log('Request ==>', req.body);
+    let frontendResponse = {};
+    const ticket = await client.verifyIdToken({
+      idToken: req.body.credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    })
+
+    if(!ticket) {
+      res.status(400).json({ error: "Sign In with google failed!" });
+    }
+
+    const payload = ticket.getPayload();
+
+    if(!payload) {
+      res.status(400).json({ error: "Sign In with google failed!" });
+    }
+
+    // console.log('Payload:=', payload);
+
+    const userDetails = {
+      email: payload && payload.email,
+      full_name: payload && payload.name,
+      picture: payload && payload.picture,
+    }
+
+    //check if user belongs to db;
+    const dbUser = await User.findOne({email: userDetails.email});
+    if(!dbUser) {
+      console.log('User Not Present in Database.');
+      const userRecord = await User(userDetails).save();
+      
+      if(!userRecord) {
+        console.log('There was error in saving the user in rentvio db.');
+      }
+      
+      else {
+        console.log('Saved new user from google to DB====',userRecord);
+        frontendResponse = userRecord;
+      }
+    }
+    else {
+      console.log('User already present in database!', dbUser);
+      frontendResponse = dbUser;
+    }
+
+
+    // create token
+    const token = jwt.sign({ _id: frontendResponse._id }, process.env.SECRET);
+
+    // //create token in cookie
+    res.cookie("token", token, { expire: new Date() + 9999 });
+
+
+    return res.json({ token, user: {
+      _id: frontendResponse._id,
+      full_name: frontendResponse.full_name, 
+      email: frontendResponse.email, 
+      privilages: frontendResponse.privilages,
+      picture: frontendResponse && frontendResponse.picture 
+    }});
+}
 
 exports.isSignedIn = expressJwt({
   secret: process.env.SECRET,
