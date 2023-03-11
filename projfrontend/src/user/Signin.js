@@ -1,10 +1,11 @@
 import { GoogleLogin } from "@react-oauth/google";
 import React, { useRef, useState } from "react";
+import { Container, Navbar } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import { authenticate, isAuthenticated, signin } from "../auth/helper/index";
 import Base from "../core/Base";
-import CustomNavBar from "../core/CustomNavBar";
 import signInPageIllustration from "./sign-in-page-illustration.png"
+import logo from "../logo.png";
 
 const SignIn = () => {
   const [values, setValues] = useState({
@@ -89,7 +90,7 @@ const SignIn = () => {
       }
     }
     if (isAuthenticated()) {
-      return <Redirect to="/user/dashboard" />;
+      return <Redirect to="/" />;
     }
   };
 
@@ -165,7 +166,15 @@ const SignIn = () => {
   };
 
   return (
-    <Base navbar={true} className="signIn">
+    <Base>
+      <Container className="pt-0 pb-0">
+      <Navbar style={{ height: 80 }} variant="light">
+        <Navbar.Brand href="/">
+              <img alt="" src={logo} width={120} />
+              {""}
+            </Navbar.Brand>
+        </Navbar>
+      </Container>
       {errorMessage()}
       {signInForm()}
       {performRedirect()}

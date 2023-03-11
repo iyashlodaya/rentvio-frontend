@@ -5,6 +5,8 @@ import "../user/css/user.css";
 import CustomNavBar from "../core/CustomNavBar";
 import signupIllustration from "./sign-up-page-illustration.png";
 import Base from "../core/Base";
+import { Container, Navbar } from "react-bootstrap";
+import logo from "../logo.png";
 
 const SignUp = () => {
   const [values, setValues] = useState({
@@ -214,7 +216,15 @@ const SignUp = () => {
   };
 
   return (
-    <Base navbar={true} id="Signup Page" className="signUp text-dark">
+    <Base>
+      <Container className="pt-0 pb-0">
+      <Navbar style={{ height: 80 }} variant="light">
+        <Navbar.Brand href="/">
+              <img alt="" src={logo} width={120} />
+              {""}
+            </Navbar.Brand>
+        </Navbar>
+      </Container>
       {signUpForm()}
     </Base>
   );
