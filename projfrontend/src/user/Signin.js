@@ -1,8 +1,8 @@
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import React, { useRef, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
-import { authenticate, isAuthenticated, signin } from "../auth/helper/index";
+import { authenticate, isAuthenticated, signin, signInWithGoogle } from "../auth/helper/index";
 import Base from "../core/Base";
 import signInPageIllustration from "./sign-in-page-illustration.png"
 import logo from "../logo.png";
@@ -62,11 +62,16 @@ const SignIn = () => {
       if (!signInResponse) {
         // console.log("Error in SignIn!", signInResponse);
       } else {
-        if (signInResponse.error) {
-          // console.log("SignIn API Error Response. ", signInResponse);
+        if(signInResponse.err) {
+          // console.log('Error Occured in Signin', signInResponse);
+          setValues({ ...values, error: signInResponse.err });
+        }
+        else if (signInResponse.error) {
+          console.log("SignIn API Error Response. ", signInResponse);
           setValues({ ...values, error: signInResponse.error });
-        } else {
-          // console.log("SignIn API Success Response. ", signInResponse);
+        } 
+        else {
+          console.log("SignIn API Success Response. ", signInResponse);
           authenticate(signInResponse, () => {
             setValues({
               ...values,
@@ -81,12 +86,37 @@ const SignIn = () => {
     }
   };
 
+  const signInGoogle = async (token) => {
+
+    const googleResponse = await signInWithGoogle(token);
+
+    if(!googleResponse) {
+      console.log('error in google signIn');
+    }
+    else if (googleResponse.error) {
+      console.log('Error in google sign in', googleResponse);
+      setValues({ ...values, error: googleResponse.error });
+    }
+    else {
+      console.log('Sucess in google sign in', googleResponse);
+      authenticate(googleResponse, () => {
+        setValues({
+          ...values,
+          didRedirect: true,
+          error: "",
+          email: "",
+          password: "",
+        });
+      });
+    }
+  }
+
   const performRedirect = () => {
     if (didRedirect) {
       if (user && user.privilages === 1) {
         return <Redirect to="/admin/dashboard" />;
       } else {
-        return <Redirect to="/user/dashboard" />;
+        return <Redirect to="/" />;
       }
     }
     if (isAuthenticated()) {
@@ -98,8 +128,12 @@ const SignIn = () => {
   const errorMessage = () => {
     return (
       <div
-        className="alert alert-danger"
-        style={{ display: error ? "" : "none" }}
+        className="alert alert-danger mt-3"
+        style={{
+          textAlign: "center",
+          width: "480px",
+          display: error ? "" : "none",
+        }}
       >
         {error}
       </div>
@@ -126,7 +160,9 @@ const SignIn = () => {
                 <input
                   ref={emailRef}
                   onChange={handleChange("email")}
-                  className="form-control"
+                  className={`form-control ${
+                    error && email === "" ? "is-invalid" : null
+                  }`}
                   value={email}
                   type="email"
                   placeholder="e.g. john.doe@rentvio.com"
@@ -137,7 +173,9 @@ const SignIn = () => {
                 <input
                   ref={passwordRef}
                   onChange={handleChange("password")}
-                  className="form-control"
+                  className={`form-control ${
+                    error && password === "" ? "is-invalid" : null
+                  }`}
                   type="password"
                   value={password}
                   placeholder="Enter password."
@@ -149,9 +187,13 @@ const SignIn = () => {
                 </button>
               </div>
               <hr className="hr-break"></hr>
+
               <div className="form-group">
                 <div className="google-btn">
-                  <GoogleLogin>
+                  <GoogleLogin
+                  onSuccess={async (successResponse)=>{signInGoogle(successResponse.credential)}}
+                  onError={(errorResponse)=>{console.log('successful login', errorResponse)}}
+                  >
                   </GoogleLogin>
                 </div>
               </div>
@@ -159,6 +201,7 @@ const SignIn = () => {
                 <h6 style={{fontWeight: "400"}}>New to Rentvio? <Link to="/signup">Sign up</Link></h6>
               </div>
             </form>
+            {errorMessage()}
           </div>
         </div>
       </div>
@@ -175,7 +218,6 @@ const SignIn = () => {
             </Navbar.Brand>
         </Navbar>
       </Container>
-      {errorMessage()}
       {signInForm()}
       {performRedirect()}
     </Base>
