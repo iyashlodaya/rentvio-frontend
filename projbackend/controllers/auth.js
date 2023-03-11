@@ -21,7 +21,7 @@ exports.signup = (req, res) => {
   const user = new User(req.body);
   user.save((err, user) => {
     if (err) {
-      return res.status(400).json({ err: "NOT ABLE TO SAVE USER " });
+      return res.status(400).json({ error: "Not able to register the user." });
     }
     res.json(user);
   });

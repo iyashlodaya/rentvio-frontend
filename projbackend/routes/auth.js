@@ -14,7 +14,7 @@ router.get("/signout", signout);
 router.post(
   "/signup",
   [
-    check("first_name").isLength({ min: 3 }),
+    check("full_name").isLength({ min: 1 }),
     check("email").isEmail().withMessage("Enter a valid Email"),
     check("password")
       .isLength({ min: 8 })
