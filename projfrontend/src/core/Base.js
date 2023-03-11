@@ -4,7 +4,6 @@ import Footer from "./footer";
 
 
 const Base = ({
-  className = "p-3",
   children,
   navbar,
   footer
