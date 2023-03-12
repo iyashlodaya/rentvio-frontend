@@ -12,6 +12,7 @@ import AdminRoute from "./auth/helper/AdminRoute";
 import PrivateRoute from "./auth/helper/PrivateRoute";
 import AddCategory from "./admin/AddCategory";
 import AddProduct from "./admin/AddProduct";
+import ProductPage from "./user/ProductPage";
 
 const Routes = () => {
   return (
@@ -20,10 +21,11 @@ const Routes = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={SignIn} />
+        <Route path={`/product`} component={ProductPage} />
         <AdminRoute exact path="/admin/dashboard" component={AdminDashBoard} />
         <AdminRoute exact path="/admin/create/category" component={AddCategory} />
         <AdminRoute exact path="/admin/create/product" component={AddProduct} />
-        <Route exact path="/user/dashboard" component={UserDashBoard} />
+        <PrivateRoute exact path="/user/dashboard" component={UserDashBoard} />
         <PrivateRoute exact path="/profile" component={Profile} />
       </Switch>
     </BrowserRouter>

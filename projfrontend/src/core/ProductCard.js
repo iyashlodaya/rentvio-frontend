@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function ProductCard({productInfo}) {
   const history = useHistory();
@@ -25,10 +25,10 @@ function ProductCard({productInfo}) {
           {productInfo.productName}
         </p>
         <p id="product-price" style={{fontSize: "12px", fontWeight:"500"}}>
-          ₹ 499/mo
+          {`₹ ${productInfo.productPrice}/mo`}
         </p>
         </div>
-        <button id="add-to-cart-btn" className="btn text-center" onClick={()=>{history.push('/login')}}>
+        <button id="add-to-cart-btn" className="btn text-center" onClick={()=>{history.push(`/product/${productInfo.productId}`, productInfo)}}>
           <span style={{fontSize: "14px"}}>Rent <i className="ps-1 fa fa-shopping-bag fa-sm"></i></span>
         </button>
       </div>
