@@ -25,7 +25,7 @@ function ProductCard({productInfo}) {
           {productInfo.productName}
         </p>
         <p id="product-price" style={{fontSize: "12px", fontWeight:"500"}}>
-          {`₹ ${productInfo.productPrice}/mo`}
+          {`₹ ${productInfo.productRent}/mo`}
         </p>
         </div>
         <button id="add-to-cart-btn" className="btn text-center" onClick={()=>{history.push(`/product/${productInfo.productId}`, productInfo)}}>

@@ -78,7 +78,7 @@ const Home = () => {
     {
       productId: 101,
       productName: "Orange Chair",
-      productPrice: 499,
+      productRent: 499,
       productRefundableDeposit: (499*1.5),
       productImageLink:
         "https://images.unsplash.com/photo-1506332088442-9e0024864f5d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -86,7 +86,7 @@ const Home = () => {
     {
       productId: 102,
       productName: "Bed and Mattress",
-      productPrice: 595,
+      productRent: 595,
       productRefundableDeposit: (595*1.5),
       productImageLink:
         "https://images.pexels.com/photos/6489083/pexels-photo-6489083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -94,7 +94,7 @@ const Home = () => {
     {
       productId: 103,
       productName: "Yellow Sofa Set",
-      productPrice: 1499,
+      productRent: 1499,
       productRefundableDeposit: (1499*1.5),
       productImageLink:
         "https://images.unsplash.com/photo-1558211583-d26f610c1eb1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1106&q=80",
@@ -102,7 +102,7 @@ const Home = () => {
     {
       productId: 104,
       productName: "Table & Chair Set",
-      productPrice: 899,
+      productRent: 899,
       productRefundableDeposit: (899*1.5),
       productImageLink:
         "https://images.pexels.com/photos/271696/pexels-photo-271696.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -110,7 +110,7 @@ const Home = () => {
     {
       productId: 105,
       productName: "Vintage Refrigerator",
-      productPrice: 650,
+      productRent: 650,
       productRefundableDeposit: (650*1.5),
       productImageLink:
         "https://images.pexels.com/photos/2962002/pexels-photo-2962002.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -118,7 +118,7 @@ const Home = () => {
     {
       productId: 106,
       productName: "Laptop",
-      productPrice: 1000,
+      productRent: 1000,
       productRefundableDeposit: (1000*1.5),
       productImageLink:
         "https://images.pexels.com/photos/5793953/pexels-photo-5793953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -126,7 +126,7 @@ const Home = () => {
     {
       productId: 107,
       productName: "Dining Table Set",
-      productPrice: 899,
+      productRent: 899,
       productRefundableDeposit: (899*1.5),
       productImageLink:
         "https://images.pexels.com/photos/932095/pexels-photo-932095.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -134,7 +134,7 @@ const Home = () => {
     {
       productId: 108,
       productName: "Coffee Maker",
-      productPrice: 250,
+      productRent: 250,
       productRefundableDeposit: (250*1.5),
       productImageLink:
         "https://images.unsplash.com/photo-1565452344518-47faca79dc69?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",

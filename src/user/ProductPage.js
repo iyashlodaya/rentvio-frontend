@@ -29,22 +29,40 @@ const productSubImagesArray = [1,2,3];
 function ProductPage() {
   const history = useHistory();
   const productInfo = history.location.state;
-  const [productPrice, setProductPrice] = useState(productInfo.productPrice);
+
+  const [productCart, addToProductCart] = useState([]);
+  const addToCart = (productInfo, selectedTenure, updatedProductRent) => {
+    const product = {
+      productInfo: productInfo,
+      selectedTenure,
+      updatedProductRent
+    }
+
+    addToProductCart([...productCart,product])
+  }
+
+
+  const [productRent, setProductRent] = useState(productInfo.productRent);
+  const [rentTenure, setRentTenure] = useState(3);
   const convertMonthlyPriceAccordingToSelectedMonths = (e) => {
     
     const selectedMonth = e.target.value;
     if(selectedMonth == 3) {
-        setProductPrice(Math.trunc(productInfo.productPrice));
+        setRentTenure(selectedMonth);
+        setProductRent(Math.trunc(productInfo.productRent));
     }
 
     else if (selectedMonth == 6) {
-        setProductPrice(Math.trunc(productInfo.productPrice - 25));
+        setRentTenure(selectedMonth);
+        setProductRent(Math.trunc(productInfo.productRent - 25));
     }
     else if (selectedMonth == 9) {
-        setProductPrice(Math.trunc(productInfo.productPrice - 50));
+        setRentTenure(selectedMonth);
+        setProductRent(Math.trunc(productInfo.productRent - 50));
     }
     else if (selectedMonth == 12) {
-        setProductPrice(Math.trunc(productInfo.productPrice - 100));
+        setRentTenure(selectedMonth);
+        setProductRent(Math.trunc(productInfo.productRent - 100));
     }
     else {
         console.log('Something Went Wrong!')
@@ -126,7 +144,7 @@ function ProductPage() {
           <div id="price-section">
             <div>
               <h6>Monthly Rent</h6>
-              <p>{`₹ ${productPrice}/mo `}</p>
+              <p>{`₹ ${productRent}/mo `}</p>
             </div>
             <div className="vertical-line"></div>
             <div>
@@ -143,7 +161,13 @@ function ProductPage() {
               <strong>RENT15</strong>: Get 15% off for first month.
             </p>
           </div>
-          <button id="add-to-cart-btn" className="btn w-100 mt-3">
+          <button
+            id="add-to-cart-btn"
+            onClick={() => {
+              addToCart(productInfo, rentTenure, productRent);
+            }}
+            className="btn w-100 mt-3"
+          >
             Add To Cart
           </button>
         </div>
