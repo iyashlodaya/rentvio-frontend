@@ -6,6 +6,11 @@
     justify-content: space-between;
 }
 
+#user-account-drop-down {
+    background-color: white;
+    border: none;
+}
+
 #user-account-drop-down::after{
     content: none;
 }

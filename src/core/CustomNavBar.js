@@ -9,7 +9,6 @@ import { useHistory } from "react-router-dom";
 
 export default function CustomNavBar() {
   const [loggedInUser, setLoggedInUser] = useState(null);
-
   const history = useHistory();
   useEffect(() => {
     const { user } = isAuthenticated();
@@ -60,32 +59,40 @@ export default function CustomNavBar() {
               loggedInUser && (
                 <>
                   <Nav>
-                    <NavDropdown
-                      id="user-account-drop-down"
-                      menuVariant="light"
-                      title={
-                        <i
+                    <Dropdown >
+                      <Dropdown.Toggle id="user-account-drop-down" >
+                      <i
                           style={{ color: "#5271FF" }}
                           className="fa-solid fa-user fa-lg"
                         ></i>
-                      }
-                    >
-                      <NavDropdown.Item className="d-flex flex-row justify-content-space-between align-items-center text-center">
-                        <p className="m-0 pe-5 text-center">Profile</p>
-                        <img src={loggedInUser.picture ? loggedInUser.picture : avatarImg } width={40} style={{borderRadius: "50%"}}/>
-                      </NavDropdown.Item>
-                      <NavDropdown.Divider />
-                      <NavDropdown.Item
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu align={"end"} className={"mt-3"}>
+                        <Dropdown.Item className="d-flex flex-row justify-content-space-between align-items-center text-center">
+                          <p className="m-0 pe-5 text-center" style={{fontSize: "14px"}}>Profile</p>
+                          <img
+                            src={
+                                loggedInUser.picture
+                                ? loggedInUser.picture
+                                : avatarImg
+                            }
+                            width={40}
+                            style={{ borderRadius: "50%" }}
+                          />
+                        </Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item style={{fontSize: "14px"}}
                         onClick={() => {
                           signout(() => {
                             setLoggedInUser(null);
                             history.push("/");
                           });
-                        }}
-                      >
-                        Signout
-                      </NavDropdown.Item>
-                    </NavDropdown>
+                        }} 
+                        >
+                          Sign Out
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </Nav>
                 </>
               )
