@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
-function ProductCard({productInfo}) {
+function ProductCard({productInfo, setLoading}) {
   const history = useHistory();
   return (
     <div
@@ -28,7 +28,12 @@ function ProductCard({productInfo}) {
           {`₹ ${productInfo.productRent}/mo`}
         </p>
         </div>
-        <button id="add-to-cart-btn" className="btn text-center" onClick={()=>{history.push(`/product/${productInfo.productId}`, productInfo)}}>
+        <button id="add-to-cart-btn" className="btn text-center" onClick={()=>{
+          setLoading(true)
+          setTimeout(()=>{
+            history.push(`/product/${productInfo.productId}`, productInfo);
+          }, 1000)
+          }}>
           <span style={{fontSize: "14px"}}>Rent <i className="ps-1 fa fa-shopping-bag fa-sm"></i></span>
         </button>
       </div>

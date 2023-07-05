@@ -44,10 +44,19 @@ const renderCarousalForHeroSection = () => {
   )
 }
 
+const LoadingSpinner = () => {
+  return (
+    <div className="loading-spinner-container">
+      <div className="loading-spinner"></div>
+    </div>
+  );
+};
+
 const Home = () => {
   const scroll = useRef(null);
   const [scrollValue, setScrollValue] = useState(0);
   const [scrollEnd, setScrollEnd] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const slide = (shift) => {
     scroll.current.scrollLeft += shift;
@@ -165,12 +174,16 @@ const Home = () => {
           <div ref={scroll} onScroll={handleScroll} className="product-section pt-4">
             { products.map((product, index) => {
               return (
-                <ProductCard productInfo={product} key={index}/>
+                <ProductCard productInfo={product} setLoading={setLoading} key={index}/>
               );
             })}
           </div>
         </div>
       {performRedirect()}
+      {/* {setLoading(true)} */}
+      {/* Render the loading spinner if isLoading is true */}
+      {isLoading && <LoadingSpinner />}
+      
 
     </Base>
   );
