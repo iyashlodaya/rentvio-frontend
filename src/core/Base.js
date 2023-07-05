@@ -7,13 +7,14 @@ const Base = ({
   className="",
   children,
   navbar,
+  productCart,
   footer
 }) => {
   // console.log('BASE: Props: Navbar', navbar)
   // console.log('BASE: Props: footer', footer)
   return (
     <div>
-      {navbar && <CustomNavBar/>}
+      {navbar && <CustomNavBar productCart={productCart}/>}
       <div className={className}>{children}</div>
       {footer && <Footer />}
     </div>

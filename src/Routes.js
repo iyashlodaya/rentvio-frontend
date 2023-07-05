@@ -22,6 +22,7 @@ const Routes = () => {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={SignIn} />
         <Route path={`/product`} component={ProductPage} />
+        <Route path="/product/:productId" component={ProductPage} />
         <AdminRoute exact path="/admin/dashboard" component={AdminDashBoard} />
         <AdminRoute exact path="/admin/create/category" component={AddCategory} />
         <AdminRoute exact path="/admin/create/product" component={AddProduct} />

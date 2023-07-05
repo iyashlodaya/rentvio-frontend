@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container, Dropdown, DropdownButton, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Badge, Button, Container, Dropdown, DropdownButton, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 import logo from "../logo.png";
 import avatarImg from "../auth/avatar.png";
@@ -9,8 +9,17 @@ import { useHistory } from "react-router-dom";
 
 export default function CustomNavBar() {
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [cartItemCount, setCartItemCount] = useState(0);
+
   const history = useHistory();
   useEffect(() => {
+    const productCart = JSON.parse(localStorage.getItem('productCart'));
+    if(productCart && productCart.length > 0) {
+      console.log('ProductCart in nav bar', productCart );
+      console.log('productCart length', productCart.length);
+      setCartItemCount(productCart.length);
+    }
+
     const { user } = isAuthenticated();
     if (user) {
       setLoggedInUser(user);
@@ -48,20 +57,31 @@ export default function CustomNavBar() {
                 </Form>
               }
             </Nav>
-            <Nav.Link
+            <Nav
               id="shopping-bag"
               className="ms-3 me-3 d-flex flex-row align-items-center text-center"
               style={{ color: "#5271FF", cursor: "pointer" }}
             >
-              <i className="fa fa-shopping-bag fa-lg"></i>
-            </Nav.Link>
+              <i className="fa fa-shopping-bag fa-lg">
+              {cartItemCount && cartItemCount >= 0 && (
+                <Badge
+                  pill
+                  bg="danger"
+                  style={{ fontSize: 12, position: "absolute", top: 18, right: 484 }}
+                >
+                  {cartItemCount >= 0 && cartItemCount}
+                </Badge>
+              )}
+              </i>
+              
+            </Nav>
             {
               loggedInUser && (
                 <>
                   <Nav>
-                    <Dropdown >
-                      <Dropdown.Toggle id="user-account-drop-down" >
-                      <i
+                    <Dropdown>
+                      <Dropdown.Toggle id="user-account-drop-down">
+                        <i
                           style={{ color: "#5271FF" }}
                           className="fa-solid fa-user fa-lg"
                         ></i>
@@ -69,10 +89,15 @@ export default function CustomNavBar() {
 
                       <Dropdown.Menu align={"end"} className={"mt-3"}>
                         <Dropdown.Item className="d-flex flex-row justify-content-space-between align-items-center text-center">
-                          <p className="m-0 pe-5 text-center" style={{fontSize: "14px"}}>Profile</p>
+                          <p
+                            className="m-0 pe-5 text-center"
+                            style={{ fontSize: "14px" }}
+                          >
+                            Profile
+                          </p>
                           <img
                             src={
-                                loggedInUser.picture
+                              loggedInUser.picture
                                 ? loggedInUser.picture
                                 : avatarImg
                             }
@@ -81,13 +106,14 @@ export default function CustomNavBar() {
                           />
                         </Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item style={{fontSize: "14px"}}
-                        onClick={() => {
-                          signout(() => {
-                            setLoggedInUser(null);
-                            history.push("/");
-                          });
-                        }} 
+                        <Dropdown.Item
+                          style={{ fontSize: "14px" }}
+                          onClick={() => {
+                            signout(() => {
+                              setLoggedInUser(null);
+                              history.push("/");
+                            });
+                          }}
                         >
                           Sign Out
                         </Dropdown.Item>
