@@ -4,11 +4,9 @@ import {
   Button,
   Container,
   Dropdown,
-  DropdownButton,
   Form,
   Nav,
-  Navbar,
-  NavDropdown,
+  Navbar
 } from "react-bootstrap";
 
 import logo from "../logo.png";
@@ -20,7 +18,6 @@ import { CartContext } from "./CartContext";
 
 export default function CustomNavBar() {
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [cartItemCount, setCartItemCount] = useState(null);
   const { cartItems, clearCart } = useContext(CartContext);
 
   const history = useHistory();
@@ -42,7 +39,7 @@ export default function CustomNavBar() {
                 history.push("/");
               }}
             >
-              <img alt="" src={logo} width={120} />
+              <img alt="logo" src={logo} width={120} />
               {""}
             </Navbar.Brand>
             <Nav>
@@ -99,6 +96,7 @@ export default function CustomNavBar() {
                             src={item.productInfo.productImageLink}
                             width={80}
                             height={60}
+                            alt="product-mini-pic"
                             style={{ borderRadius: 20, marginRight: 20 }}
                           />
                           <div style={{marginRight: 20, cursor:"default"}}>
@@ -132,14 +130,14 @@ export default function CustomNavBar() {
                         justifyContent: "space-between",
                       }}
                     >
-                      {/* <Button
+                      <Button
                         style={{ marginRight: 8 }}
                         onClick={() => {
                           clearCart();
                         }}
                       >
                         Clear Cart
-                      </Button> */}
+                      </Button>
                       <Button>Go To Cart</Button>
                     </Dropdown.Item>
                   ) : (
@@ -175,6 +173,7 @@ export default function CustomNavBar() {
                                 : avatarImg
                             }
                             width={40}
+                            alt="profile pic"
                             style={{ borderRadius: "50%" }}
                           />
                         </Dropdown.Item>
