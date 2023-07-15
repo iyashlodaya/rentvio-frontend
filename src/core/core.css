@@ -11,6 +11,15 @@
     border: none;
 }
 
+#cart-drop-down {
+    background-color: white;
+    border: none;
+}
+
+#cart-drop-down-menu {
+    /* width: 320px; */
+}
+
 #user-account-drop-down::after{
     content: none;
 }

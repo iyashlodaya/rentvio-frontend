@@ -7,7 +7,6 @@ import "./css/product-page.css";
 import { Alert } from "react-bootstrap";
 import { CartContext } from "../core/CartContext";
 
-
 const marks = [
   {
     value: 3,

@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { Badge, Button, Container, Dropdown, DropdownButton, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Badge,
+  Button,
+  Container,
+  Dropdown,
+  DropdownButton,
+  Form,
+  Nav,
+  Navbar,
+  NavDropdown,
+} from "react-bootstrap";
 
 import logo from "../logo.png";
 import avatarImg from "../auth/avatar.png";
 import "../core/core.css";
 import { isAuthenticated, signout } from "../auth/helper";
 import { useHistory } from "react-router-dom";
+import { CartContext } from "./CartContext";
 
 export default function CustomNavBar() {
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [cartItemCount, setCartItemCount] = useState(0);
+  const [cartItemCount, setCartItemCount] = useState(null);
+  const { cartItems, clearCart } = useContext(CartContext);
 
   const history = useHistory();
   useEffect(() => {
-    const productCart = JSON.parse(localStorage.getItem('productCart'));
-    if(productCart && productCart.length > 0) {
-      console.log('ProductCart in nav bar', productCart );
-      console.log('productCart length', productCart.length);
-      setCartItemCount(productCart.length);
-    }
-
     const { user } = isAuthenticated();
     if (user) {
       setLoggedInUser(user);
@@ -31,7 +36,12 @@ export default function CustomNavBar() {
       <Navbar style={{ height: 80 }} variant="light">
         <Container className="nav-container">
           <div className="d-flex flex-row align-items-center">
-            <Navbar.Brand href="/">
+            <Navbar.Brand
+              href="/"
+              onClick={() => {
+                history.push("/");
+              }}
+            >
               <img alt="" src={logo} width={120} />
               {""}
             </Navbar.Brand>
@@ -59,21 +69,84 @@ export default function CustomNavBar() {
             </Nav>
             <Nav
               id="shopping-bag"
-              className="ms-3 me-3 d-flex flex-row align-items-center text-center"
-              style={{ color: "#5271FF", cursor: "pointer" }}
+              className="ms-3  d-flex flex-row align-items-center text-center"
             >
-              <i className="fa fa-shopping-bag fa-lg">
-              {cartItemCount && cartItemCount >= 0 && (
-                <Badge
-                  pill
-                  bg="danger"
-                  style={{ fontSize: 12, position: "absolute", top: 18, right: 484 }}
-                >
-                  {cartItemCount >= 0 && cartItemCount}
-                </Badge>
-              )}
-              </i>
-              
+              <Dropdown>
+                <Dropdown.Toggle id="cart-drop-down">
+                  <i
+                    className="fa fa-shopping-bag fa-lg"
+                    style={{ color: "#5271FF" }}
+                  >
+                    {cartItems && cartItems.length > 0 && (
+                      <Badge
+                        pill
+                        bg="danger"
+                        style={{ fontSize: 12, position: "absolute", backgroundColor:'red' }}
+                      >
+                        {cartItems.length}
+                      </Badge>
+                    )}
+                  </i>
+                </Dropdown.Toggle>
+                <Dropdown.Menu id="cart-drop-down-menu">
+                  {cartItems.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        <Dropdown.Item
+                          className="d-flex flex-row align-items-center justify-content-between"
+                        >
+                          <img
+                            src={item.productInfo.productImageLink}
+                            width={80}
+                            height={60}
+                            style={{ borderRadius: 20, marginRight: 20 }}
+                          />
+                          <div style={{marginRight: 20, cursor:"default"}}>
+                            <p className="m-0" style={{ fontSize: "14px",  }}>
+                              {item.productInfo.productName}
+                            </p>
+                            <p className="m-0" style={{ fontSize: "14px" }}>
+                              Rent: ₹{item.productInfo.productRent}
+                            </p>
+                            <p className="m-0" style={{ fontSize: "14px" }}>
+                              Refundable Deposit: ₹
+                              {item.productInfo.productRefundableDeposit}
+                            </p>
+                          </div>
+                          <div id="item-button-section">
+                            <i
+                              style={{ color: "#E97451" }}
+                              className="fa-solid fa-trash fa-lg"
+                            />
+                          </div>
+                        </Dropdown.Item>
+                        <Dropdown.Divider></Dropdown.Divider>
+                      </div>
+                    );
+                  })}
+                  {cartItems && cartItems.length > 0 ? (
+                    <Dropdown.Item
+                      id="button-section"
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      {/* <Button
+                        style={{ marginRight: 8 }}
+                        onClick={() => {
+                          clearCart();
+                        }}
+                      >
+                        Clear Cart
+                      </Button> */}
+                      <Button>Go To Cart</Button>
+                    </Dropdown.Item>
+                  ) : (
+                    <Dropdown.Item>No Items in Cart</Dropdown.Item>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
             </Nav>
             {
               loggedInUser && (
