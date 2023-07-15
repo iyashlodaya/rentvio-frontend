@@ -1,10 +1,12 @@
 import { Slider } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Base from "../core/Base";
 
 import "./css/product-page.css";
 import { Alert } from "react-bootstrap";
+import { CartContext } from "../core/CartContext";
+
 
 const marks = [
   {
@@ -32,6 +34,8 @@ function ProductPage() {
   const productInfo = history.location.state;
   const [showAlert, setShowAlert] = useState(false);
   const [message, setAlertMessage] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+  const {addToCart} = useContext(CartContext); 
 
   const showAlertWithTimeout = (message) => {
     setShowAlert(true);
@@ -43,72 +47,34 @@ function ProductPage() {
     }, 2000);
   };
 
-  const addToCart = (productInfo, selectedTenure, updatedProductRent) => {
+  const handleAddToCart = (productInfo, selectedTenure, updatedProductRent) => {
     const currentSelectProduct = {
       productInfo: productInfo,
       selectedTenure,
       updatedProductRent,
     };
 
-    // console.log("SelectedProductInfo", currentSelectProduct);
-
-    //fetch the array of cart from localstorage if present, if not present then create one
-    let productCart = localStorage.getItem("productCart");
-
-    if (productCart) {
-      //do something.
-      console.log("productCart ->", JSON.parse(productCart));
-      // parse the content of array present in local storage.
-      const appProductCart = JSON.parse(productCart);
-      //check if the product with same id is available in the cart.
-      const isItemPresentInCart = appProductCart.some(
-        (cartItem) =>
-          cartItem.productInfo.productId ===
-          currentSelectProduct.productInfo.productId
-      );
-
-      if (isItemPresentInCart) {
-        console.log("Item Already Present In the cart!!");
-        showAlertWithTimeout('Item Already Present in the cart!!');
-      } else {
-        let updatedProductCart = [...appProductCart, currentSelectProduct];
-        // console.log("updatedProductCart", updatedProductCart);
-        localStorage.setItem("productCart", JSON.stringify(updatedProductCart));
-        console.log(
-          "localStorage",
-          JSON.parse(localStorage.getItem("productCart"))
-        );
-        showAlertWithTimeout('Item Added To Cart.');
-      }
-    } 
-    else {
-      let temporaryProductCartArray = [];
-
-      temporaryProductCartArray.push(currentSelectProduct);
-
-      localStorage.setItem(
-        "productCart",
-        JSON.stringify(temporaryProductCartArray)
-      );
-
-      showAlertWithTimeout('Item Added To Cart.');
-    }
+    let productCartArray = [];
+    productCartArray.push(currentSelectProduct);
+    setCartItems(productCartArray);
+    addToCart(currentSelectProduct);
+    showAlertWithTimeout("Item Added To Cart.");
   };
 
   const [productRent, setProductRent] = useState(productInfo.productRent);
   const [rentTenure, setRentTenure] = useState(3);
   const convertMonthlyPriceAccordingToSelectedMonths = (e) => {
     const selectedMonth = e.target.value;
-    if (selectedMonth == 3) {
+    if (selectedMonth === 3) {
       setRentTenure(selectedMonth);
       setProductRent(Math.trunc(productInfo.productRent));
-    } else if (selectedMonth == 6) {
+    } else if (selectedMonth === 6) {
       setRentTenure(selectedMonth);
       setProductRent(Math.trunc(productInfo.productRent - 25));
-    } else if (selectedMonth == 9) {
+    } else if (selectedMonth === 9) {
       setRentTenure(selectedMonth);
       setProductRent(Math.trunc(productInfo.productRent - 50));
-    } else if (selectedMonth == 12) {
+    } else if (selectedMonth === 12) {
       setRentTenure(selectedMonth);
       setProductRent(Math.trunc(productInfo.productRent - 100));
     } else {
@@ -117,7 +83,7 @@ function ProductPage() {
   };
 
   return (
-    <Base navbar={true} footer={true}>
+    <Base navbar={true} cartItems={cartItems} footer={true}>
       <div
         id="alert-container"
         className="d-flex justify-content-center align-items-center"
@@ -134,13 +100,14 @@ function ProductPage() {
 
       <div className="container d-flex" style={{ height: "max-content" }}>
         <div id="product-left-section">
-          <img id="product-main-image" src={productInfo.productImageLink} />
+          <img id="product-main-image" alt="product" src={productInfo.productImageLink} />
           <div id="sub-images-section">
             {productSubImagesArray.map((image, index) => {
               return (
                 <img
                   className="product-sub-image"
                   key={index}
+                  alt="product-secondary"
                   style={{ borderRadius: "8px" }}
                   src={productInfo.productImageLink}
                 />
@@ -224,7 +191,7 @@ function ProductPage() {
           <button
             id="add-to-cart-btn"
             onClick={() => {
-              addToCart(productInfo, rentTenure, productRent);
+              handleAddToCart(productInfo, rentTenure, productRent);
             }}
             className="btn w-100 mt-3"
           >
