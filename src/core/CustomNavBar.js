@@ -138,7 +138,7 @@ export default function CustomNavBar() {
                       >
                         Clear Cart
                       </Button>
-                      <Button>Go To Cart</Button>
+                      <Button onClick={()=>{history.push("/cart")}}>Go To Cart</Button>
                     </Dropdown.Item>
                   ) : (
                     <Dropdown.Item>No Items in Cart</Dropdown.Item>
