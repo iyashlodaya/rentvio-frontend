@@ -35,6 +35,8 @@ function ProductPage() {
   const [message, setAlertMessage] = useState('');
   const [cartItems, setCartItems] = useState([]);
   const {addToCart} = useContext(CartContext); 
+  const [productRent, setProductRent] = useState(productInfo.productRent);
+  const [rentTenure, setRentTenure] = useState(3);
 
   const showAlertWithTimeout = (message) => {
     setShowAlert(true);
@@ -51,6 +53,7 @@ function ProductPage() {
       productInfo: productInfo,
       selectedTenure,
       updatedProductRent,
+      rentForWholeTenure: (updatedProductRent * selectedTenure),
     };
 
     let productCartArray = [];
@@ -60,8 +63,7 @@ function ProductPage() {
     showAlertWithTimeout("Item Added To Cart.");
   };
 
-  const [productRent, setProductRent] = useState(productInfo.productRent);
-  const [rentTenure, setRentTenure] = useState(3);
+  
   const convertMonthlyPriceAccordingToSelectedMonths = (e) => {
     const selectedMonth = e.target.value;
     if (selectedMonth === 3) {
