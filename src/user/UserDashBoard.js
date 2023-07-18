@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { isAuthenticated } from "../auth/helper";
 import Base from "../core/Base";
 
@@ -14,7 +14,7 @@ const UserDashboard = () => {
 
 const performRedirect = () => {
   if (!isAuthenticated()) {
-    return <Redirect to="/" />;
+    return <Navigate to="/home" />;
   }
 };
 

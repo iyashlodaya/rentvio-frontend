@@ -5,7 +5,7 @@ import Categories from "./Categories";
 import { Carousel } from "react-bootstrap";
 import ProductCard from "./ProductCard";
 import { isAuthenticated } from "../auth/helper";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const carousalImages = {
   imageOne: 'https://images.unsplash.com/photo-1594614271360-0ed9a570ae15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -55,7 +55,7 @@ const LoadingSpinner = () => {
 const Home = () => {
   const scroll = useRef(null);
   const [scrollValue, setScrollValue] = useState(0);
-  const [scrollEnd, setScrollEnd] = useState(false);
+  const [setScrollEnd] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
   const slide = (shift) => {
@@ -86,6 +86,7 @@ const Home = () => {
   const products = [
     {
       productId: 101,
+      productStripeId: "prod_OHl2Cbmnm8XFT8",
       productName: "Orange Chair",
       productRent: 499,
       productRefundableDeposit: (499*1.5),
@@ -102,6 +103,7 @@ const Home = () => {
     },
     {
       productId: 103,
+      productStripeId: "prod_OHl5QxixHUpUAw",
       productName: "Yellow Sofa Set",
       productRent: 1499,
       productRefundableDeposit: (1499*1.5),
@@ -191,7 +193,7 @@ const Home = () => {
 
 const performRedirect = () => {
   if (isAuthenticated()) {
-    return <Redirect to="/" />;
+    return <Navigate to="/home" />;
   }
 };
 

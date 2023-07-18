@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ProductCard({productInfo, setLoading}) {
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <div
       className="text-center me-5"
@@ -11,6 +11,7 @@ function ProductCard({productInfo, setLoading}) {
     >
       <img
         id="product-image"
+        alt="product"
         src={productInfo.productImageLink}
         style={{
           width: "16rem",
@@ -31,7 +32,7 @@ function ProductCard({productInfo, setLoading}) {
         <button id="add-to-cart-btn" className="btn text-center" onClick={()=>{
           setLoading(true)
           setTimeout(()=>{
-            history.push(`/product/${productInfo.productId}`, productInfo);
+            navigate(`/product/${productInfo.productId}`, { state: productInfo });
           }, 1000)
           }}>
           <span style={{fontSize: "14px"}}>Rent <i className="ps-1 fa fa-shopping-bag fa-sm"></i></span>

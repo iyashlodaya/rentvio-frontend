@@ -1,7 +1,7 @@
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import React, { useRef, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { authenticate, isAuthenticated, signin, signInWithGoogle } from "../auth/helper/index";
 import Base from "../core/Base";
 import signInPageIllustration from "./sign-in-page-illustration.png"
@@ -18,8 +18,7 @@ const SignIn = () => {
   let emailRef = useRef("")
   let passwordRef = useRef("")
 
-  const { email, password, error, didRedirect } = values;
-  const { user } = isAuthenticated();
+  const { email, password, error } = values;
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -112,15 +111,8 @@ const SignIn = () => {
   }
 
   const performRedirect = () => {
-    if (didRedirect) {
-      if (user && user.privilages === 1) {
-        return <Redirect to="/admin/dashboard" />;
-      } else {
-        return <Redirect to="/" />;
-      }
-    }
     if (isAuthenticated()) {
-      return <Redirect to="/" />;
+      return <Navigate to="/home" />;
     }
   };
 

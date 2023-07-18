@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { isAuthenticated, signup } from "../auth/helper/index";
 import "../user/css/user.css";
-import CustomNavBar from "../core/CustomNavBar";
 import signupIllustration from "./sign-up-page-illustration.png";
 import Base from "../core/Base";
 import { Container, Navbar } from "react-bootstrap";
@@ -217,7 +216,7 @@ const SignUp = () => {
 
   const performRedirect = () => {
     if (isAuthenticated()) {
-      return <Redirect to="/" />;
+      return <Navigate to="/" />;
     }
   };
 

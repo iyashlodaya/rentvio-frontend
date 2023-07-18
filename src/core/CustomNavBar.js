@@ -13,14 +13,14 @@ import logo from "../logo.png";
 import avatarImg from "../auth/avatar.png";
 import "../core/core.css";
 import { isAuthenticated, signout } from "../auth/helper";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext";
 
 export default function CustomNavBar() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const { cartItems, clearCart } = useContext(CartContext);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   useEffect(() => {
     const { user } = isAuthenticated();
     if (user) {
@@ -36,7 +36,7 @@ export default function CustomNavBar() {
             <Navbar.Brand
               href="/"
               onClick={() => {
-                history.push("/");
+                navigate("/");
               }}
             >
               <img alt="logo" src={logo} width={120} />
@@ -138,7 +138,7 @@ export default function CustomNavBar() {
                       >
                         Clear Cart
                       </Button>
-                      <Button onClick={()=>{history.push("/cart")}}>Go To Cart</Button>
+                      <Button onClick={()=>{navigate("/cart")}}>Go To Cart</Button>
                     </Dropdown.Item>
                   ) : (
                     <Dropdown.Item>No Items in Cart</Dropdown.Item>
@@ -183,7 +183,7 @@ export default function CustomNavBar() {
                           onClick={() => {
                             signout(() => {
                               setLoggedInUser(null);
-                              history.push("/");
+                              navigate("/");
                             });
                           }}
                         >
@@ -207,7 +207,7 @@ export default function CustomNavBar() {
                   onClick={() => {
                     signout(() => {
                       setLoggedIn(false);
-                      history.push("/");
+                      navigate("/");
                     });
                   }}
                 >

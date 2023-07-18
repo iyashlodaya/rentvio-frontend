@@ -1,6 +1,6 @@
 import { Slider } from "@mui/material";
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Base from "../core/Base";
 
 import "./css/product-page.css";
@@ -29,8 +29,8 @@ const marks = [
 const productSubImagesArray = [1, 2, 3];
 
 function ProductPage() {
-  const history = useHistory();
-  const productInfo = history.location.state;
+  const {state} = useLocation();
+  const productInfo = state;
   const [showAlert, setShowAlert] = useState(false);
   const [message, setAlertMessage] = useState('');
   const [cartItems, setCartItems] = useState([]);

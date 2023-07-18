@@ -1,10 +1,9 @@
 import React from 'react';
-import { FaBed, FaChair, FaCouch, FaLaptop, FaMobileAlt, FaTv } from 'react-icons/fa';
 
 const CategoryCard = ({category}) => {
     return (
       <div className='text-center' style={{marginRight: '29px', width: "12rem" }}>
-          <img className='d-block w-100' style={{borderRadius: "16px", overflow: 'hidden', opacity: 1, height: "8rem", objectFit: "cover",cursor:"pointer" }} src={category.imageLink}></img>
+          <img alt='category-pic' className='d-block w-100' style={{borderRadius: "16px", overflow: 'hidden', opacity: 1, height: "8rem", objectFit: "cover",cursor:"pointer" }} src={category.imageLink}></img>
           <p className='mt-2' style={{fontSize: "14px", cursor:"pointer"}}>{category.name}</p>
       </div>
     );
