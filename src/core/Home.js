@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles.css";
 import Base from "./Base";
 import Categories from "./Categories";
@@ -6,6 +6,7 @@ import { Carousel } from "react-bootstrap";
 import ProductCard from "./ProductCard";
 import { isAuthenticated } from "../auth/helper";
 import { Navigate } from "react-router-dom";
+import { fetchAllProducts } from "./helper/coreapicalls";
 
 const carousalImages = {
   imageOne: 'https://images.unsplash.com/photo-1594614271360-0ed9a570ae15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
@@ -44,7 +45,7 @@ const renderCarousalForHeroSection = () => {
   )
 }
 
-const LoadingSpinner = () => {
+export const LoadingSpinner = () => {
   return (
     <div className="loading-spinner-container">
       <div className="loading-spinner"></div>
@@ -55,8 +56,9 @@ const LoadingSpinner = () => {
 const Home = () => {
   const scroll = useRef(null);
   const [scrollValue, setScrollValue] = useState(0);
-  const [setScrollEnd] = useState(false);
+  const [scrolled, setScrollEnd] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [products, setProducts] = useState([]);
 
   const slide = (shift) => {
     scroll.current.scrollLeft += shift;
@@ -83,10 +85,11 @@ const Home = () => {
       setScrollEnd(false);
     }
   };
-  const products = [
+  /* const products = [
     {
       productId: 101,
-      productStripeId: "prod_OHl2Cbmnm8XFT8",
+      categoryId:'living-room',
+      priceId: "price_1Nhx9bSG0YDsYJkoZCHtktJz",
       productName: "Orange Chair",
       productRent: 499,
       productRefundableDeposit: (499*1.5),
@@ -95,6 +98,7 @@ const Home = () => {
     },
     {
       productId: 102,
+      categoryId:'bedroom',
       productName: "Bed and Mattress",
       productRent: 595,
       productRefundableDeposit: (595*1.5),
@@ -103,7 +107,8 @@ const Home = () => {
     },
     {
       productId: 103,
-      productStripeId: "prod_OHl5QxixHUpUAw",
+      categoryId:'living-room',
+      priceId: "price_1NhxAKSG0YDsYJkolGT9yrk5",
       productName: "Yellow Sofa Set",
       productRent: 1499,
       productRefundableDeposit: (1499*1.5),
@@ -112,6 +117,7 @@ const Home = () => {
     },
     {
       productId: 104,
+      categoryId:'kitchen',
       productName: "Table & Chair Set",
       productRent: 899,
       productRefundableDeposit: (899*1.5),
@@ -120,6 +126,7 @@ const Home = () => {
     },
     {
       productId: 105,
+      categoryId:'kitchen',
       productName: "Vintage Refrigerator",
       productRent: 650,
       productRefundableDeposit: (650*1.5),
@@ -128,6 +135,7 @@ const Home = () => {
     },
     {
       productId: 106,
+      categoryId:'work-from-home',
       productName: "Laptop",
       productRent: 1000,
       productRefundableDeposit: (1000*1.5),
@@ -136,7 +144,9 @@ const Home = () => {
     },
     {
       productId: 107,
+      categoryId:'kitchen',
       productName: "Dining Table Set",
+      priceId: 'price_1NiFiwSG0YDsYJkodOQOGszR',
       productRent: 899,
       productRefundableDeposit: (899*1.5),
       productImageLink:
@@ -144,13 +154,27 @@ const Home = () => {
     },
     {
       productId: 108,
+      categoryId:'kitchen',
       productName: "Coffee Maker",
+      priceId: 'price_1NiFjVSG0YDsYJkoAoDPcKjk',
       productRent: 250,
       productRefundableDeposit: (250*1.5),
       productImageLink:
         "https://images.unsplash.com/photo-1565452344518-47faca79dc69?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
     },
-  ];
+  ]; */
+  
+  useEffect(() => {
+    fetchAllProducts()
+      .then((response) => {
+        console.log("Response fetchAllProducts: useEffect ->", response);
+        setProducts(response);
+      })
+      .catch((error) => {
+        console.log("Error occured in fetchAllProducts", error);
+      });
+  }, []);
+
   return (
     <Base navbar={true} footer={true} >
       <div className="container">
