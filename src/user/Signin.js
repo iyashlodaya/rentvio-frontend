@@ -66,11 +66,11 @@ const SignIn = () => {
           setValues({ ...values, error: signInResponse.err });
         }
         else if (signInResponse.error) {
-          console.log("SignIn API Error Response. ", signInResponse);
+          // console.log("SignIn API Error Response. ", signInResponse);
           setValues({ ...values, error: signInResponse.error });
         } 
         else {
-          console.log("SignIn API Success Response. ", signInResponse);
+          // console.log("SignIn API Success Response. ", signInResponse);
           authenticate(signInResponse, () => {
             setValues({
               ...values,
@@ -93,11 +93,11 @@ const SignIn = () => {
       console.log('error in google signIn');
     }
     else if (googleResponse.error) {
-      console.log('Error in google sign in', googleResponse);
+      // console.log('Error in google sign in', googleResponse);
       setValues({ ...values, error: googleResponse.error });
     }
     else {
-      console.log('Sucess in google sign in', googleResponse);
+      // console.log('Success in google sign in', googleResponse);
       authenticate(googleResponse, () => {
         setValues({
           ...values,
@@ -184,7 +184,7 @@ const SignIn = () => {
                 <div className="google-btn">
                   <GoogleLogin
                   onSuccess={async (successResponse)=>{signInGoogle(successResponse.credential)}}
-                  onError={(errorResponse)=>{console.log('successful login', errorResponse)}}
+                  onError={(errorResponse)=>{console.log('Error in google login', errorResponse)}}
                   >
                   </GoogleLogin>
                 </div>
