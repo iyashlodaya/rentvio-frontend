@@ -9,10 +9,13 @@ import ProductPage from "./user/ProductPage";
 import Cart from "./core/Cart";
 import UserDashboard from "./user/UserDashBoard";
 import ProductList from "./core/ProductsList";
+import ScrollToTop from "./core/ScrollToTop";
+import OrdersPage from "./user/OrdersPage";
 
 const App = () => {
   return (
     <BrowserRouter>
+    <ScrollToTop/>
       <Routes>
         <Route path="/" element={<Navigate to="/home"/>}/>
         <Route path="/home" element={<Home/>} />
@@ -22,6 +25,7 @@ const App = () => {
         <Route path="/product/:productId" element={<ProductPage/>} />
         <Route path="/products/:categoryId" element={<ProductList/>} />
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/user/orders" element={<OrdersPage/>} />
         <Route exact path="/user/dashboard" element={<UserDashboard/>} />
       </Routes>
     </BrowserRouter>

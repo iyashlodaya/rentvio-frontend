@@ -3,11 +3,11 @@ import Base from "./Base";
 import { CartContext } from "./CartContext";
 import { Box, FormControl, InputLabel, MenuItem, Modal, Select } from "@mui/material";
 import { Button } from "@mui/material";
-import { createSubscriptions } from "./helper/coreapicalls";
+import { createSubscriptions, createOrder } from "./helper/coreapicalls";
 import CheckoutForm from "./CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "react-stripe-js";
-const stripePromise = loadStripe('pk_test_51NhwnFSG0YDsYJkoUDSUvCMzqvWlGdC32JEbn07N0N9y43TzRLBGPHd3Wssl1E9hzPdphLX9WzFYae09m7cAQoKD00vIfFsqPh');
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PRIVATE_KEY}`);
 
 
 
@@ -33,11 +33,36 @@ const Cart = () => {
   const handleCheckout = async () => {
     const selectedProducts = cartItems;
 
-    createSubscriptions(selectedProducts).then((response)=>{
+    console.log('selectedProducts', selectedProducts);
+
+    const totalRefundableDeposit = cartItems.reduce(
+      (total, item) =>
+        total + parseInt(item.productInfo.productRefundableDeposit),
+      0
+    );
+
+    console.log('total refundable deposit', totalRefundableDeposit);
+
+    const totalMonthlyRentToBePaidEveryMonth = cartItems.reduce(
+      (total, item) => total + item.productInfo.productRent,
+      0
+    );
+
+    console.log('total monthly rent, to be paid every month', totalMonthlyRentToBePaidEveryMonth);
+
+    const orderObject = {
+      cartItems: selectedProducts,
+      totalMonthlyRentToBePaidEveryMonth,
+      totalRefundableDeposit
+    }
+
+    
+    await createOrder(selectedProducts, totalMonthlyRentToBePaidEveryMonth, totalRefundableDeposit, 123);
+    /* createSubscriptions(selectedProducts).then((response)=>{
       console.log('Response from createPaymentIntent', response);
       setClientSecret(response.clientSecret)
       handleOpen(true);
-    });
+    }); */
   } 
  
 
@@ -198,10 +223,11 @@ const Cart = () => {
               </div>
               <div className="ps-3 pe-3 pt-5">
                 <Button
+                  disabled={cartItems.length <=0 ? true: false}
                   onClick={() => {
                     handleCheckout(cartItems);
                   }}
-                  id="checkout-btn"
+                  id={cartItems.length <=0 ? 'checkout-btn-disabled' : 'checkout-btn'}
                   size="large"
                   fullWidth
                 >

@@ -28,8 +28,7 @@ export const fetchCategories = async () => {
 
     const jwt = JSON.parse(localStorage.getItem('jwt'));
 
-
-    const response = await axios.get(API_URL, {headers: {Authorization: `Bearer ${jwt.token}`}});
+    const response = await axios.get(API_URL);
 
     if(!response) {
       console.log('No Response recieved from fetch Categories API!');
@@ -46,7 +45,7 @@ export const fetchAllProducts = async () => {
 
     const jwt = JSON.parse(localStorage.getItem('jwt'));
 
-    const response = await axios.get(API_URL, {headers: {Authorization: `Bearer ${jwt.token}`}});
+    const response = await axios.get(API_URL);
 
     if(!response) {
       console.log('No Response recieved from fetch Products API!');
@@ -63,7 +62,7 @@ export const fetchProductsByCategoryId = async (categoryId) => {
 
     const jwt = JSON.parse(localStorage.getItem('jwt'));
 
-    const response = await axios.get(API_URL, {headers: {Authorization: `Bearer ${jwt.token}`}});
+    const response = await axios.get(API_URL);
 
     if(!response) {
       console.log('No Response recieved from fetch Products by Category ID API!');
@@ -71,5 +70,26 @@ export const fetchProductsByCategoryId = async (categoryId) => {
     return response.data;
   } catch (error) {
     console.log('Error occured in fetching Products by Category ID!', error);
+  }
+}
+
+export const createOrder = async (cartItems, totalMonthlyRentToBePaidEveryMonth, totalRefundableDeposit) => {
+  try {
+
+    const API_URL = `${process.env.REACT_APP_BACKEND}/orders`;
+
+    const jwt = JSON.parse(localStorage.getItem('jwt'));
+
+    const response = await axios.post(API_URL, {
+      user_id: jwt.user._id,
+      cart_items: cartItems,
+      total_monthly_rent_to_be_paid: totalMonthlyRentToBePaidEveryMonth,
+      total_refundable_deposit: totalRefundableDeposit
+    });
+
+    console.log('response from create order!', response);
+  }
+  catch (error) {
+    console.log('error occured in create order!', error);
   }
 }
