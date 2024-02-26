@@ -11,14 +11,6 @@
     border: none;
 }
 
-#cart-drop-down {
-    background-color: white;
-    border: none;
-}
-
-#cart-drop-down-menu {
-    /* width: 320px; */
-}
 
 #user-account-drop-down::after{
     content: none;
@@ -200,6 +192,12 @@ hr {
 #checkout-btn:hover {
     background-color: #5271FF;
     color: #fff;
+}
+
+#checkout-btn-disabled {
+  background-color: white;
+  border: 1px solid rgb(185, 184, 184);
+  color: rgb(185, 184, 184)
 }
 
 #payment-form {

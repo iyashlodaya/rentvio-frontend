@@ -68,83 +68,12 @@ export default function CustomNavBar() {
               id="shopping-bag"
               className="ms-3  d-flex flex-row align-items-center text-center"
             >
-              <Dropdown>
-                <Dropdown.Toggle id="cart-drop-down">
-                  <i
-                    className="fa fa-shopping-bag fa-lg"
-                    style={{ color: "#5271FF" }}
-                  >
-                    {cartItems && cartItems.length > 0 && (
-                      <Badge
-                        pill
-                        bg="danger"
-                        style={{ fontSize: 12, position: "absolute", backgroundColor:'red' }}
-                      >
-                        {cartItems.length}
-                      </Badge>
-                    )}
-                  </i>
-                </Dropdown.Toggle>
-                <Dropdown.Menu id="cart-drop-down-menu">
-                  {cartItems.map((item, index) => {
-                    return (
-                      <div key={index}>
-                        <Dropdown.Item
-                          className="d-flex flex-row align-items-center justify-content-between"
-                        >
-                          <img
-                            src={item.productInfo.productImageLink}
-                            width={80}
-                            height={60}
-                            alt="product-mini-pic"
-                            style={{ borderRadius: 20, marginRight: 20 }}
-                          />
-                          <div style={{marginRight: 20, cursor:"default"}}>
-                            <p className="m-0" style={{ fontSize: "14px",  }}>
-                              {item.productInfo.productName}
-                            </p>
-                            <p className="m-0" style={{ fontSize: "14px" }}>
-                              Rent: ₹{item.productInfo.productRent}
-                            </p>
-                            <p className="m-0" style={{ fontSize: "14px" }}>
-                              Refundable Deposit: ₹
-                              {item.productInfo.productRefundableDeposit}
-                            </p>
-                          </div>
-                          <div id="item-button-section">
-                            <i
-                              style={{ color: "#E97451" }}
-                              className="fa-solid fa-trash fa-lg"
-                            />
-                          </div>
-                        </Dropdown.Item>
-                        <Dropdown.Divider></Dropdown.Divider>
-                      </div>
-                    );
-                  })}
-                  {cartItems && cartItems.length > 0 ? (
-                    <Dropdown.Item
-                      id="button-section"
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Button
-                        style={{ marginRight: 8 }}
-                        onClick={() => {
-                          clearCart();
-                        }}
-                      >
-                        Clear Cart
-                      </Button>
-                      <Button onClick={()=>{navigate("/cart")}}>Go To Cart</Button>
-                    </Dropdown.Item>
-                  ) : (
-                    <Dropdown.Item>No Items in Cart</Dropdown.Item>
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
+              <Button className="me-2" onClick={()=>{navigate('/cart')}} variant="text">
+                <i
+                  className="fa fa-shopping-bag fa-lg"
+                  style={{ color: "#5271FF" }}
+                ></i>
+              </Button>
             </Nav>
             {
               loggedInUser && (
@@ -164,7 +93,7 @@ export default function CustomNavBar() {
                             className="m-0 pe-5 text-center"
                             style={{ fontSize: "14px" }}
                           >
-                            Profile
+                            {loggedInUser.full_name}
                           </p>
                           <img
                             src={
@@ -176,6 +105,15 @@ export default function CustomNavBar() {
                             alt="profile pic"
                             style={{ borderRadius: "50%" }}
                           />
+                        </Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item
+                          onClick={() => {
+                            navigate("/user/orders");
+                          }}
+                          style={{ fontSize: "14px" }}
+                        >
+                          Orders
                         </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Item
