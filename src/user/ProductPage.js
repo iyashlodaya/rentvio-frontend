@@ -1,10 +1,10 @@
-import { Slider } from "@mui/material";
+import { Alert, Slider } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Base from "../core/Base";
+import CheckIcon from '@mui/icons-material/Check';
 
 import "./css/product-page.css";
-import { Alert } from "react-bootstrap";
 import { CartContext } from "../core/CartContext";
 
 const marks = [
@@ -85,7 +85,7 @@ function ProductPage() {
 
   return (
     <Base navbar={true} cartItems={cartItems} footer={true}>
-      <div
+      {/* <div
         id="alert-container"
         className="d-flex justify-content-center align-items-center"
       >
@@ -97,7 +97,7 @@ function ProductPage() {
         >
          {message}
         </Alert>
-      </div>
+      </div> */}
 
       <div className="container d-flex" style={{ height: "max-content" }}>
         <div id="product-left-section">
@@ -200,6 +200,21 @@ function ProductPage() {
           </button>
         </div>
       </div>
+      {showAlert && (
+        <div style={{
+          position: 'fixed',
+          bottom: 20,
+          left: 20,
+          zIndex: 9999 // Ensure the alert is above other content
+        }}>
+          <Alert
+            icon={<CheckIcon fontSize="inherit" />}
+            severity="info"
+          >
+            {message}
+          </Alert>
+        </div>
+      )}
     </Base>
   );
 }
