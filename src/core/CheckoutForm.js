@@ -55,7 +55,7 @@ export default function CheckoutForm(props) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3006/user/payment-success",
+        return_url: `${process.env.REACT_APP_BASE_URL}/user/payment-success`,
       },
     });
 
