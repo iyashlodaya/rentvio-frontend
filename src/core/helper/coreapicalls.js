@@ -73,10 +73,10 @@ export const fetchProductsByCategoryId = async (categoryId) => {
   }
 }
 
-export const createOrder = async (cartItems, totalMonthlyRentToBePaidEveryMonth, totalRefundableDeposit) => {
+export const payDeposit = async (cartItems, totalMonthlyRentToBePaidEveryMonth, totalRefundableDeposit) => {
   try {
 
-    const API_URL = `${process.env.REACT_APP_BACKEND}/orders`;
+    const API_URL = `${process.env.REACT_APP_BACKEND}/pay/deposit`;
 
     const jwt = JSON.parse(localStorage.getItem('jwt'));
 
@@ -86,10 +86,33 @@ export const createOrder = async (cartItems, totalMonthlyRentToBePaidEveryMonth,
       total_monthly_rent_to_be_paid: totalMonthlyRentToBePaidEveryMonth,
       total_refundable_deposit: totalRefundableDeposit
     });
-
-    console.log('response from create order!', response);
+    console.log('response from pay deposit api!', response);
+    return response;
   }
   catch (error) {
-    console.log('error occured in create order!', error);
+    console.log('error occured in pay deposit api!', error);
+    // return error;
+  }
+}
+
+export const createOrder = async (cartItems, totalMonthlyRentToBePaidEveryMonth, totalRefundableDeposit) => {
+  try {
+
+    const API_URL = `${process.env.REACT_APP_BACKEND}/orders/create`;
+
+    const jwt = JSON.parse(localStorage.getItem('jwt'));
+
+    const response = await axios.post(API_URL, {
+      user_id: jwt.user._id,
+      cart_items: cartItems,
+      total_monthly_rent_to_be_paid: totalMonthlyRentToBePaidEveryMonth,
+      total_refundable_deposit: totalRefundableDeposit
+    });
+    console.log('response from create order api!', response);
+    return response;
+  }
+  catch (error) {
+    console.log('error occured in create order api!', error);
+    // return error;
   }
 }

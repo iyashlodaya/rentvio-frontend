@@ -5,6 +5,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { createOrder } from "./helper/coreapicalls";
 
 export default function CheckoutForm(props) {
   const stripe = useStripe();
@@ -19,22 +20,24 @@ export default function CheckoutForm(props) {
       return;
     }
 
-    /* stripe.retrievePaymentIntent(props.clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!");
-          break;
-        case "processing":
-          setMessage("Your payment is processing.");
-          break;
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
-      }
-    }); */
+    stripe
+      .retrievePaymentIntent(props.clientSecret)
+      .then(({ paymentIntent }) => {
+        switch (paymentIntent.status) {
+          case "succeeded":
+            setMessage("Payment succeeded!");
+            break;
+          case "processing":
+            setMessage("Your payment is processing.");
+            break;
+          case "requires_payment_method":
+            setMessage("Please enter card details!");
+            break;
+          default:
+            setMessage("Something went wrong.");
+            break;
+        }
+      });
   }, [stripe]);
 
   const handleSubmit = async (e) => {
@@ -52,7 +55,7 @@ export default function CheckoutForm(props) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3006/",
+        return_url: "http://localhost:3006/user/payment-success",
       },
     });
 
@@ -66,28 +69,33 @@ export default function CheckoutForm(props) {
     } else {
       setMessage("An unexpected error occurred.");
     }
-
+    
+    //create order if there is no error!
+    console.log('Succesful Payment!!');
+    
     setIsLoading(false);
   };
 
   const paymentElementOptions = {
     layout: {
-        type: 'accordion',
-        defaultCollapsed: false,
-        radios: false,
-        spacedAccordionItems: true
-      }
+      type: "accordion",
+      defaultCollapsed: false,
+      radios: false,
+      spacedAccordionItems: true,
+    },
   };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      <LinkAuthenticationElement
-        id="link-authentication-element"
-      />
-      <PaymentElement id="payment-element" options={paymentElementOptions}  />
-      <button className="pay-btn" disabled={isLoading || !stripe || !elements} id="submit">
+      <LinkAuthenticationElement id="link-authentication-element" />
+      <PaymentElement id="payment-element" options={paymentElementOptions} />
+      <button
+        className="pay-btn"
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+      >
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? <div className="spinner" id="spinner"></div> : `Pay ${props.ordersObject.totalRefundableDeposit} now`}
         </span>
       </button>
       {/* Show any error or success messages */}

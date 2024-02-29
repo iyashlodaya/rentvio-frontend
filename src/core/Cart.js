@@ -3,21 +3,20 @@ import Base from "./Base";
 import { CartContext } from "./CartContext";
 import { Box, FormControl, InputLabel, MenuItem, Modal, Select } from "@mui/material";
 import { Button } from "@mui/material";
-import { createSubscriptions, createOrder } from "./helper/coreapicalls";
+import { createSubscriptions, payDeposit } from "./helper/coreapicalls";
 import CheckoutForm from "./CheckoutForm";
-import { Elements } from "@stripe/react-stripe-js"
-import { loadStripe } from "react-stripe-js";
-const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PRIVATE_KEY}`);
+import { Elements } from "@stripe/react-stripe-js";
 
 
-
-
-const Cart = () => {
+const Cart = (props) => {
+  console.log('cart.js props', props);
   const { cartItems } = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const [clientSecret, setClientSecret] = useState("")
+  const [totalDeposit, setTotalDeposit] = useState(0);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [ordersObject, setOrdersObject] = useState({});
 
   const style = {
     position: 'absolute',
@@ -56,8 +55,14 @@ const Cart = () => {
       totalRefundableDeposit
     }
 
+    setOrdersObject(orderObject);
+
     
-    await createOrder(selectedProducts, totalMonthlyRentToBePaidEveryMonth, totalRefundableDeposit, 123);
+    const response = await payDeposit(selectedProducts, totalMonthlyRentToBePaidEveryMonth, totalRefundableDeposit);
+    console.log('response', response);
+    setTotalDeposit(totalRefundableDeposit);
+    setClientSecret(response.data.client_secret);
+    handleOpen(true);
     /* createSubscriptions(selectedProducts).then((response)=>{
       console.log('Response from createPaymentIntent', response);
       setClientSecret(response.clientSecret)
@@ -85,8 +90,8 @@ const Cart = () => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Elements options={options} stripe={stripePromise}>
-              <CheckoutForm clientSecret={options.clientSecret}></CheckoutForm>
+            <Elements options={options} stripe={props.stripePromise}>
+              <CheckoutForm clientSecret={options.clientSecret} ordersObject={ordersObject}></CheckoutForm>
             </Elements>
           </Box>
         </Modal>

@@ -11,6 +11,10 @@ import UserDashboard from "./user/UserDashBoard";
 import ProductList from "./core/ProductsList";
 import ScrollToTop from "./core/ScrollToTop";
 import OrdersPage from "./user/OrdersPage";
+import { loadStripe } from "@stripe/stripe-js";
+import PaymentSuccessPage from "./core/PaymentSuccessPage";
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PRIVATE_KEY);
 
 const App = () => {
   return (
@@ -24,8 +28,9 @@ const App = () => {
         <Route path={`/product`} element={<ProductPage/>} />
         <Route path="/product/:productId" element={<ProductPage/>} />
         <Route path="/products/:categoryId" element={<ProductList/>} />
-        <Route path="/cart" element={<Cart/>} />
+        <Route path="/cart" element={<Cart stripePromise={stripePromise}/>} />
         <Route path="/user/orders" element={<OrdersPage/>} />
+        <Route path="/user/payment-success" element={<PaymentSuccessPage/>} />
         <Route exact path="/user/dashboard" element={<UserDashboard/>} />
       </Routes>
     </BrowserRouter>
