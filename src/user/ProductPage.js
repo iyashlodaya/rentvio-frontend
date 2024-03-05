@@ -79,7 +79,7 @@ function ProductPage() {
       setRentTenure(selectedMonth);
       setProductRent(Math.trunc(productInfo.productRent - 100));
     } else {
-      console.log("Something Went Wrong!");
+      // console.log("Something Went Wrong!");
     }
   };
 

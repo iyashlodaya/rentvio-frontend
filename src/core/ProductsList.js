@@ -21,12 +21,12 @@ function ProductList() {
 
   useEffect(()=> {
     fetchProductsByCategoryId(categoryId).then((response) => {
-      console.log('this is cateogory: ->', categoryId);
-      console.log('fetchProductsByCategoryID: => useEffect', response);
+      // console.log('this is cateogory: ->', categoryId);
+      // console.log('fetchProductsByCategoryID: => useEffect', response);
       setProductsAsPerCategory(response);
     })
     .catch((error) => {
-      console.log('useEffect: fetchProductsByCategoryId', error);
+      // console.log('useEffect: fetchProductsByCategoryId', error);
     })
   }, [])
 

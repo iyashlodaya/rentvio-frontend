@@ -12,7 +12,7 @@ export const signup = async (requestData) => {
       return await response.json();
     }
   } catch (err) {
-    console.log("ERROR" + err);
+    // console.log("ERROR" + err);
     return {err: "Failed to save user!"};
   }
 };
@@ -32,7 +32,7 @@ export const signInWithGoogle = async (token) => {
       return await response.json();
     }    
   } catch (error) {
-    console.log('Error in API', error);
+    // console.log('Error in API', error);
     return {error: "failed to login"}
   }
 }
@@ -48,7 +48,7 @@ export const signin = async (user) => {
       return await response.json();
     }
   } catch (err) {
-    console.log("ERROR" + err);
+    // console.log("ERROR" + err);
     return {err: "failed to login"}
   }
 };
@@ -69,7 +69,7 @@ export const signout = async (next) => {
       await fetch(`${API}/signout`, { method: "GET" });
       return true;
     } catch (err) {
-      console.log("error signin out", err);
+      // console.log("error signin out", err);
     }
   }
 };

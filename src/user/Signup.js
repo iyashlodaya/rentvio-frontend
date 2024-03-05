@@ -50,7 +50,7 @@ const SignUp = () => {
       });
       passwordRef.current.focus();
     } else {
-      console.log("no errors in validation.");
+      // console.log("no errors in validation.");
       result = true;
     }
     return result;

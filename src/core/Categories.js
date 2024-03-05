@@ -6,7 +6,7 @@ const CategoryCard = ({ category }) => {
   const navigate = useNavigate();
 
   const handleClick = (category) => {
-    console.log(category.id);
+    // console.log(category.id);
     navigate(`/products/${category.id}`);
   };
 
@@ -44,10 +44,12 @@ const Categories = () => {
 
   useEffect(()=>{
     fetchCategories().then((response) => {
-      console.log('response in useEffect ->', response);
+      // console.log('response in useEffect ->', response);
       setCategories(response);
     })
-    .catch((err)=>{console.log('error in useEffect ->', err)});
+    .catch((err)=>{
+      // console.log('error in useEffect ->', err)
+    });
   },[]);
 
   return (

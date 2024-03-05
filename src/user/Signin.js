@@ -90,7 +90,7 @@ const SignIn = () => {
     const googleResponse = await signInWithGoogle(token);
 
     if(!googleResponse) {
-      console.log('error in google signIn');
+      // console.log('error in google signIn');
     }
     else if (googleResponse.error) {
       // console.log('Error in google sign in', googleResponse);
@@ -180,7 +180,7 @@ const SignIn = () => {
               </div>
               <hr className="hr-break"></hr>
 
-              <div className="form-group">
+              {/* <div className="form-group">
                 <div className="google-btn">
                   <GoogleLogin
                   onSuccess={async (successResponse)=>{signInGoogle(successResponse.credential)}}
@@ -188,7 +188,7 @@ const SignIn = () => {
                   >
                   </GoogleLogin>
                 </div>
-              </div>
+              </div> */}
               <div className="form-footer-section">
                 <h6 style={{fontWeight: "400"}}>New to Rentvio? <Link to="/signup">Sign up</Link></h6>
               </div>

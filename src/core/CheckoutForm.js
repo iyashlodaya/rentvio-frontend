@@ -71,7 +71,7 @@ export default function CheckoutForm(props) {
     }
     
     //create order if there is no error!
-    console.log('Succesful Payment!!');
+    // console.log('Succesful Payment!!');
     
     setIsLoading(false);
   };

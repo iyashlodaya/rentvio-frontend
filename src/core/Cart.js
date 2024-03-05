@@ -9,7 +9,7 @@ import { Elements } from "@stripe/react-stripe-js";
 
 
 const Cart = (props) => {
-  console.log('cart.js props', props);
+  // console.log('cart.js props', props);
   const { cartItems } = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const [clientSecret, setClientSecret] = useState("")
@@ -32,7 +32,7 @@ const Cart = (props) => {
   const handleCheckout = async () => {
     const selectedProducts = cartItems;
 
-    console.log('selectedProducts', selectedProducts);
+    // console.log('selectedProducts', selectedProducts);
 
     const totalRefundableDeposit = cartItems.reduce(
       (total, item) =>
@@ -40,14 +40,14 @@ const Cart = (props) => {
       0
     );
 
-    console.log('total refundable deposit', totalRefundableDeposit);
+    // console.log('total refundable deposit', totalRefundableDeposit);
 
     const totalMonthlyRentToBePaidEveryMonth = cartItems.reduce(
       (total, item) => total + item.productInfo.productRent,
       0
     );
 
-    console.log('total monthly rent, to be paid every month', totalMonthlyRentToBePaidEveryMonth);
+    // console.log('total monthly rent, to be paid every month', totalMonthlyRentToBePaidEveryMonth);
 
     const orderObject = {
       cartItems: selectedProducts,
@@ -59,7 +59,7 @@ const Cart = (props) => {
 
     
     const response = await payDeposit(selectedProducts, totalMonthlyRentToBePaidEveryMonth, totalRefundableDeposit);
-    console.log('response', response);
+    // console.log('response', response);
     setTotalDeposit(totalRefundableDeposit);
     setClientSecret(response.data.client_secret);
     handleOpen(true);

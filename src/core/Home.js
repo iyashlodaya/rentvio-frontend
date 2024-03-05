@@ -167,11 +167,11 @@ const Home = () => {
   useEffect(() => {
     fetchAllProducts()
       .then((response) => {
-        console.log("Response fetchAllProducts: useEffect ->", response);
+        // console.log("Response fetchAllProducts: useEffect ->", response);
         setProducts(response);
       })
       .catch((error) => {
-        console.log("Error occured in fetchAllProducts", error);
+        // console.log("Error occured in fetchAllProducts", error);
       });
   }, []);
 
