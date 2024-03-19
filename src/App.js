@@ -1,18 +1,19 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
-import Home from "./core/Home";
-import SignIn from "./user/Signin";
-import SignUp from "./user/Signup";
-
-import ProductPage from "./user/ProductPage";
-import Cart from "./core/Cart";
-import UserDashboard from "./user/UserDashBoard";
-import ProductList from "./core/ProductsList";
-import ScrollToTop from "./core/ScrollToTop";
-import OrdersPage from "./user/OrdersPage";
 import { loadStripe } from "@stripe/stripe-js";
-import PaymentSuccessPage from "./core/PaymentSuccessPage";
+
+import Home from "./pages/home/Home";
+import SignIn from "./pages/signin/Signin";
+import SignUp from "./pages/signup/Signup";
+import ProductPage from "./pages/product/ProductPage";
+import Cart from "./pages/cart/Cart";
+import ProductList from "./pages/products-list/ProductsList";
+import OrdersPage from "./pages/orders/OrdersPage";
+import PaymentSuccessPage from "./pages/payment-success/PaymentSuccessPage";
+
+//components
+import ScrollToTop from "./components/ScrollToTop";
+
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PRIVATE_KEY);
 
@@ -31,7 +32,6 @@ const App = () => {
         <Route path="/cart" element={<Cart stripePromise={stripePromise}/>} />
         <Route path="/user/orders" element={<OrdersPage/>} />
         <Route path="/user/payment-success" element={<PaymentSuccessPage/>} />
-        <Route exact path="/user/dashboard" element={<UserDashboard/>} />
       </Routes>
     </BrowserRouter>
   );

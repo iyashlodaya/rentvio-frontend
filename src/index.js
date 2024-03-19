@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { CartProvider } from "./core/CartContext";
+import { CartProvider } from "./components/CartContext";
 import App from "./App";
 
 ReactDOM.render(

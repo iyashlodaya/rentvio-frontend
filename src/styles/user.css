@@ -1,0 +1,128 @@
+.signUp {
+    min-height: 100%;
+  }
+
+.container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.left-section {
+    align-items: center;
+    background-color:#edeff2;
+    height: 768px;
+    border-radius: 8px;
+    padding-left: 6rem;
+    padding-top: 8rem;
+    padding-right: 6rem;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.sign-up-image {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    width: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sign-in-image {
+    padding-top: 2rem;
+    padding-left: 6rem;
+    padding-bottom: 4rem;
+    width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right-section {
+    padding-left: 4rem;
+    padding-right: 4rem;
+    /* font-family: 'Raleway', sans-serif; */
+    /* font-family: 'Roboto', sans-serif; */
+}
+
+.left-section-heading {
+    font-weight: bold;
+}
+.left-section-sub-heading {
+    padding-top: 1rem;
+    color: #717275;
+    font-size: 16px;
+    padding-bottom: 30px;
+    font-weight: 400;
+}
+.right-section-heading {
+    padding-top: 8rem;
+    font-weight: bold;
+}
+.right-section-sub-heading {
+    color: #8d8e91;
+    padding-bottom: 30px;
+    font-weight: 300;
+}
+
+.form-label {
+    color: #101721;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-label-error {
+    font-weight: 500;
+    font-size: 12px;
+    float: right;
+    margin-top: 0.4rem;
+    color: rgb(209, 107, 107);
+}
+
+.form-control {
+    width: 480px;
+    height: 48px;
+    font-size: 16px;
+}
+
+.form-control::placeholder {
+    font-weight: 300;
+}
+
+.form-group {
+    width: 480px;
+    padding-top: 16px;
+}
+
+.sign-up-sign-in-btn {
+    margin-top: 24px;
+    background-color: #5271FF;
+    color: #fff;
+    border-radius: 4px;
+    height: 48px;
+    width: 480px;
+}
+.sign-up-sign-in-btn:hover {
+    color: #fff;
+    background-color: #5272ffb5;
+}
+
+.google-btn {
+    margin-left: 8rem;
+    margin-right: 8rem;
+}
+
+.hr-break { 
+  margin-bottom: 2px;  
+  width: 480px;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.form-footer-section {
+    font-weight: lighter;
+    margin-top: 24px;
+    width: 480px;
+    display: flex;
+    justify-content: center;
+}
