@@ -178,10 +178,8 @@ const Home = () => {
   return (
     <Base navbar={true} footer={true} >
       <div className="container">
-          <div className="row">
-            <div className="col p-0">
+          <div>
               {renderCarousalForHeroSection()}
-            </div>
           </div>
 
           <div className="text-center pt-4">
