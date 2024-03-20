@@ -22,12 +22,14 @@
 }
 
 #login-btn {
-  margin-right: 16px;
-  margin-left: 16px;
-  padding: 4px;
-  width: 72px;
-  border-radius: 4px;
+  margin-right: 24px;
   color: #5271FF;
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  text-transform: initial;
+  font-size: medium;
+  font-weight: 400;
   border: 1px solid #5271FF;
 }
 
@@ -341,7 +343,7 @@ hr {
   flex-direction: row;
 }
 
-#nav-brand {
+#nav-left-menus {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -350,9 +352,9 @@ hr {
 #nav-menus {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  width: 300px;
+  width: 330px;
 }
 
 #nav-menus {
@@ -362,8 +364,16 @@ hr {
   float: right;
 }
 
-#shopping-bag {
+#cart-button {
+  margin-right: 24px;
   color: #5271FF;
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  text-transform: initial;
+  font-size: medium;
+  font-weight: 400;
+  /* background-color: #b2b2c7; */
 }
 
 #mobile {
@@ -390,7 +400,7 @@ hr {
     justify-content: flex-start;
     align-self: flex-start;
     position: fixed;
-    top: 90px;
+    top: 80px;
     right: -100%;
     width: 100%;
     height: 100vh;
@@ -414,25 +424,23 @@ hr {
   }
 
   #login-btn {
-    width: 72px;
+    width: 100%;
     color: #fff;
     border: 0px;
+    padding: 0;
   }
 
-  #signup-btn {
-    margin-right: 16px;
-    margin-left: 16px;
-    width: 72px;
+  #cart-button {
     color: #fff;
-    border: 0px;
-  }
-
-  #shopping-bag {
-    color: #fff;
+    padding: 0;
   }
 
   #mobile { 
     display: block;
     cursor: pointer;
   }
+}
+
+#city-select.MuiSvgIcon-root-MuiSelect-icon{
+  margin-left: 8px;
 }
