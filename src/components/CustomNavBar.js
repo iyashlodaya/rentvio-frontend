@@ -101,7 +101,7 @@ export default function CustomNavBar() {
             </div>
             <div id="nav-menus" className={menuOpen ? "active" : ""}>
               <NavLink>
-                <Button size="small" id="cart-button">
+                <Button size="small" onClick={()=>{navigate('/cart')}} id="cart-button">
                   <AddShoppingCartOutlined className="me-2" />
                   Cart
                 </Button>

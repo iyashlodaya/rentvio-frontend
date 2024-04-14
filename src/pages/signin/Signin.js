@@ -2,10 +2,16 @@ import { GoogleLogin } from "@react-oauth/google";
 import React, { useRef, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
-import { authenticate, isAuthenticated, signin, signInWithGoogle } from "../../utils/authapicalls";
+import {
+  authenticate,
+  isAuthenticated,
+  signin,
+  signInWithGoogle,
+} from "../../utils/authapicalls";
 import Base from "../../components/Base";
-import signInPageIllustration from "../../assets/sign-in-page-illustration.png"
+import signInPageIllustration from "../../assets/sign-in-page-illustration.png";
 import logo from "../../logo.png";
+import { Alert, Button, TextField, Typography } from "@mui/material";
 
 const SignIn = () => {
   const [values, setValues] = useState({
@@ -15,8 +21,8 @@ const SignIn = () => {
     didRedirect: false,
   });
 
-  let emailRef = useRef("")
-  let passwordRef = useRef("")
+  let emailRef = useRef("");
+  let passwordRef = useRef("");
 
   const { email, password, error } = values;
 
@@ -61,15 +67,13 @@ const SignIn = () => {
       if (!signInResponse) {
         // console.log("Error in SignIn!", signInResponse);
       } else {
-        if(signInResponse.err) {
+        if (signInResponse.err) {
           // console.log('Error Occured in Signin', signInResponse);
           setValues({ ...values, error: signInResponse.err });
-        }
-        else if (signInResponse.error) {
+        } else if (signInResponse.error) {
           // console.log("SignIn API Error Response. ", signInResponse);
           setValues({ ...values, error: signInResponse.error });
-        } 
-        else {
+        } else {
           // console.log("SignIn API Success Response. ", signInResponse);
           authenticate(signInResponse, () => {
             setValues({
@@ -86,17 +90,14 @@ const SignIn = () => {
   };
 
   const signInGoogle = async (token) => {
-
     const googleResponse = await signInWithGoogle(token);
 
-    if(!googleResponse) {
+    if (!googleResponse) {
       // console.log('error in google signIn');
-    }
-    else if (googleResponse.error) {
+    } else if (googleResponse.error) {
       // console.log('Error in google sign in', googleResponse);
       setValues({ ...values, error: googleResponse.error });
-    }
-    else {
+    } else {
       // console.log('Success in google sign in', googleResponse);
       authenticate(googleResponse, () => {
         setValues({
@@ -108,14 +109,13 @@ const SignIn = () => {
         });
       });
     }
-  }
+  };
 
   const performRedirect = () => {
     if (isAuthenticated()) {
       return <Navigate to="/home" />;
     }
   };
-
 
   const errorMessage = () => {
     return (
@@ -135,64 +135,67 @@ const SignIn = () => {
   const signInForm = () => {
     return (
       <div className="container">
-        <div className="row">
+        <div className="d-flex">
           <div className="col-6 left-section">
-            <h3 className="left-section-heading">Rent furniture and appliances with an ease of comfort.</h3>
-            <h6 className="left-section-sub-heading">Sign in to get the exciting deals.</h6>
-            <img src={signInPageIllustration} alt="sign-in-page" className="sign-in-image"></img>
+            <h3 className="left-section-heading">
+              Rent furniture and appliances with an ease of comfort.
+            </h3>
+            <h6 className="left-section-sub-heading">
+              Sign in to get the exciting deals.
+            </h6>
+            <img
+              src={signInPageIllustration}
+              alt="sign-in-page"
+              className="sign-in-image"
+            ></img>
           </div>
-          <div className="col-6 right-section">
+          <div id="sign-in-right-section" className="col-6">
             <h3 className="right-section-heading"> Sign In</h3>
             <h6 className="right-section-sub-heading">
               Welcome Back! Please enter your details.
             </h6>
-            <form>
-              <div className="form-group">
-                <label className="form-label">Email</label>
-                <input
-                  ref={emailRef}
-                  onChange={handleChange("email")}
-                  className={`form-control ${
-                    error && email === "" ? "is-invalid" : null
-                  }`}
-                  value={email}
-                  type="email"
-                  placeholder="e.g. john.doe@rentvio.com"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Password</label>
-                <input
-                  ref={passwordRef}
-                  onChange={handleChange("password")}
-                  className={`form-control ${
-                    error && password === "" ? "is-invalid" : null
-                  }`}
-                  type="password"
-                  value={password}
-                  placeholder="Enter password."
-                />
-              </div>
-              <div className="form-group">
-                <button onClick={onSubmit} className="btn sign-up-sign-in-btn">
-                  Sign In
-                </button>
-              </div>
+            <div id="sign-in-form">
+              <TextField
+                fullWidth
+                ref={emailRef}
+                onChange={handleChange("email")}
+                className={`form-control ${
+                  error && email === "" ? "Mui-error" : ""
+                }`}
+                value={email}
+                type="email"
+                label="Email"
+                placeholder="e.g. john.doe@rentvio.com"
+              />
+              <TextField
+                fullWidth
+                ref={passwordRef}
+                onChange={handleChange("password")}
+                className={`form-control ${
+                  error && password === "" ? "Mui-error" : ""
+                }`}
+                value={password}
+                type="password"
+                label="Password"
+                placeholder="Enter password."
+              />
+              <Button
+                variant="outlined"
+                fullWidth
+                id="login-btn"
+                onClick={onSubmit}
+              >
+                Sign In
+              </Button>
               <hr className="hr-break"></hr>
-
-              {/* <div className="form-group">
-                <div className="google-btn">
-                  <GoogleLogin
-                  onSuccess={async (successResponse)=>{signInGoogle(successResponse.credential)}}
-                  onError={(errorResponse)=>{console.log('Error in google login', errorResponse)}}
-                  >
-                  </GoogleLogin>
-                </div>
-              </div> */}
+              {/* ... existing Google Sign In logic */}
               <div className="form-footer-section">
-                <h6 style={{fontWeight: "400"}}>New to Rentvio? <Link to="/signup">Sign up</Link></h6>
+                <Typography variant="body2">
+                  New to Rentvio? <Link to="/signup">Sign up</Link>
+                </Typography>
               </div>
-            </form>
+              {error && <Alert severity="error">{error}</Alert>}
+            </div>
             {errorMessage()}
           </div>
         </div>
@@ -203,11 +206,11 @@ const SignIn = () => {
   return (
     <Base>
       <Container className="pt-0 pb-0">
-      <Navbar style={{ height: 80 }} variant="light">
-        <Navbar.Brand href="/">
-              <img alt="" src={logo} width={120} />
-              {""}
-            </Navbar.Brand>
+        <Navbar style={{ height: 80 }} variant="light">
+          <Navbar.Brand href="/">
+            <img alt="" src={logo} width={120} />
+            {""}
+          </Navbar.Brand>
         </Navbar>
       </Container>
       {signInForm()}

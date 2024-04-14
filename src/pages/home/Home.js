@@ -172,6 +172,7 @@ const Home = () => {
       })
       .catch((error) => {
         // console.log("Error occured in fetchAllProducts", error);
+        setProducts([])
       });
   }, []);
 

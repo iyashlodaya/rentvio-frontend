@@ -22,7 +22,7 @@
 }
 
 #login-btn {
-  margin-right: 24px;
+  width: 100%;
   color: #5271FF;
   display: flex;
   padding: 8px;
@@ -423,12 +423,6 @@ hr {
     color: #fff;
   }
 
-  #login-btn {
-    width: 100%;
-    color: #fff;
-    border: 0px;
-    padding: 0;
-  }
 
   #cart-button {
     color: #fff;
@@ -443,4 +437,38 @@ hr {
 
 #city-select.MuiSvgIcon-root-MuiSelect-icon{
   margin-left: 8px;
+}
+
+#sign-in-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 400px;
+  width: 480px;
+  padding: 8px;
+}
+
+#sign-in-right-section {
+  margin-left: 40px
+}
+
+@media only screen and (max-width: 768px) {
+  .left-section {
+   display: none
+  }
+
+  #sign-in-right-section {
+    margin: 0
+  }
+
+  #sign-in-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 400px;
+    width: 90vw;
+  }
+  
 }
