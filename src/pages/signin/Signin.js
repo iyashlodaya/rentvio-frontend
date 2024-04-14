@@ -149,7 +149,7 @@ const SignIn = () => {
               className="sign-in-image"
             ></img>
           </div>
-          <div id="sign-in-right-section" className="col-6">
+          <div id="sign-in-right-section">
             <h3 className="right-section-heading"> Sign In</h3>
             <h6 className="right-section-sub-heading">
               Welcome Back! Please enter your details.
@@ -179,14 +179,14 @@ const SignIn = () => {
                 label="Password"
                 placeholder="Enter password."
               />
-              <Button
+              <button
                 variant="outlined"
                 fullWidth
-                id="login-btn"
+                className="sign-up-sign-in-btn"
                 onClick={onSubmit}
               >
                 Sign In
-              </Button>
+              </button>
               <hr className="hr-break"></hr>
               {/* ... existing Google Sign In logic */}
               <div className="form-footer-section">
@@ -196,7 +196,6 @@ const SignIn = () => {
               </div>
               {error && <Alert severity="error">{error}</Alert>}
             </div>
-            {errorMessage()}
           </div>
         </div>
       </div>

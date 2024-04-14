@@ -6,6 +6,7 @@ import signupIllustration from "../../assets/sign-up-page-illustration.png";
 import Base from "../../components/Base";
 import { Container, Navbar } from "react-bootstrap";
 import logo from "../../logo.png";
+import { Button, TextField, Typography } from "@mui/material";
 
 const SignUp = () => {
   const [values, setValues] = useState({
@@ -97,8 +98,8 @@ const SignUp = () => {
     // console.log(values)
     return (
       <div className="container">
-        <div className="row">
-          <div className="col-6 left-section">
+        <div className="d-flex">
+          <div className="left-section">
             <h3 className="left-section-heading">
               Rent furniture and appliances with an ease of comfort.
             </h3>
@@ -112,68 +113,57 @@ const SignUp = () => {
               className="sign-up-image"
             ></img>
           </div>
-          <div className="col-6 right-section">
+          <div className="right-section">
             <h3 className="right-section-heading"> Get started</h3>
             <h6 className="right-section-sub-heading">
               Sign Up for Rentvio is Fast and 100% free.
             </h6>
-            <form>
-              <div className="form-group">
-                <label className="form-label" htmlFor="name">
-                  Full name
-                </label>
-                <input
-                  ref={fullnameRef}
-                  type="text"
-                  className={`form-control ${
-                    error && full_name === "" ? "is-invalid" : null
-                  }`}
-                  id="full-name"
-                  value={full_name}
-                  onChange={handleChange("full_name")}
-                  placeholder="Enter your full name."
-                />
-                {/* <div className="error-message">{error}</div> */}
+            <div id="sign-up-form">
+                  <TextField
+                    fullWidth
+                    ref={fullnameRef}
+                    onChange={handleChange("full_name")}
+                    className={`form-control ${
+                      error && full_name === "" ? "Mui-error" : null
+                    }`}
+                    value={full_name}
+                    type="text"
+                    label="Full Name"
+                    placeholder="Enter your full name."
+                  />
+                  <TextField
+                    fullWidth
+                    ref={emailRef}
+                    onChange={handleChange("email")}
+                    className={`form-control ${
+                      error && email === "" ? "Mui-error" : null
+                    }`}
+                    value={email}
+                    type="email"
+                    label="Email"
+                    placeholder="e.g. john.doe@rentvio.com"
+                  />
+                  <TextField
+                    fullWidth
+                    ref={passwordRef}
+                    onChange={handleChange("password")}
+                    className={`form-control ${
+                      error && password === "" ? "Mui-error" : null
+                    }`}
+                    value={password}
+                    type="password"
+                    label="Password"
+                    placeholder="Enter password."
+                  />
+                  <button className='sign-up-sign-in-btn' variant="outlined" onClick={onSubmit}>
+                    Sign Up
+                  </button>
+                <div className="form-footer-section">
+                  <Typography variant="body2">
+                    Have an account? <Link to="/login">Login.</Link>
+                  </Typography>
+                </div>
               </div>
-
-              <div className="form-group">
-                <label className="form-label">Email</label>
-                <input
-                  ref={emailRef}
-                  onChange={handleChange("email")}
-                  className={`form-control ${
-                    error && email === "" ? "is-invalid" : null
-                  }`}
-                  value={email}
-                  type="email"
-                  placeholder="e.g. john.doe@rentvio.com"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Password</label>
-                <input
-                  ref={passwordRef}
-                  onChange={handleChange("password")}
-                  className={`form-control ${
-                    error && password === "" ? "is-invalid" : null
-                  }`}
-                  type="password"
-                  value={password}
-                  placeholder="Enter password."
-                />
-              </div>
-              <div className="form-group">
-                <button onClick={onSubmit} className="btn sign-up-sign-in-btn">
-                  Sign Up
-                </button>
-              </div>
-
-              <div className="form-footer-section">
-                <h6 style={{ fontWeight: "400" }}>
-                  Have an account? <Link to="/login">Login.</Link>
-                </h6>
-              </div>
-            </form>
 
             {errorMessage()}
             {successMessage()}

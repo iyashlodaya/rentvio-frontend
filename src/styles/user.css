@@ -37,12 +37,6 @@
     margin-right: auto;
 }
 
-.right-section {
-    padding-left: 4rem;
-    padding-right: 4rem;
-    /* font-family: 'Raleway', sans-serif; */
-    /* font-family: 'Roboto', sans-serif; */
-}
 
 .left-section-heading {
     font-weight: bold;
@@ -55,12 +49,11 @@
     font-weight: 400;
 }
 .right-section-heading {
-    padding-top: 8rem;
+    padding-top: 4rem;
     font-weight: bold;
 }
 .right-section-sub-heading {
     color: #8d8e91;
-    padding-bottom: 30px;
     font-weight: 300;
 }
 
@@ -100,6 +93,7 @@
     border-radius: 4px;
     height: 48px;
     width: 480px;
+    border: 0px;
 }
 .sign-up-sign-in-btn:hover {
     color: #fff;

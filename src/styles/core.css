@@ -433,6 +433,12 @@ hr {
     display: block;
     cursor: pointer;
   }
+
+  #login-btn {
+    width: 100%;
+    color: #fff;
+    align-items: center;
+  }
 }
 
 #city-select.MuiSvgIcon-root-MuiSelect-icon{
@@ -446,11 +452,26 @@ hr {
   align-items: center;
   height: 400px;
   width: 480px;
-  padding: 8px;
+}
+
+#sign-up-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 400px;
+  width: 480px;
 }
 
 #sign-in-right-section {
   margin-left: 40px
+}
+
+.right-section {
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 @media only screen and (max-width: 768px) {
@@ -458,11 +479,38 @@ hr {
    display: none
   }
 
-  #sign-in-right-section {
+  .right-section {
+    padding: 0;
     margin: 0
   }
 
+  .right-section-heading {
+    margin: 0;
+    padding: 0;
+  }
+
+  .right-section-sub-heading {
+    margin-top: 8px;
+    padding-bottom: 0;
+  }
+
+  #sign-in-right-section {
+    margin: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
   #sign-in-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 400px;
+    width: 90vw;
+  }
+
+  #sign-up-form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
