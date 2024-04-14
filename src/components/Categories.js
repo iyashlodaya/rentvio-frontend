@@ -12,23 +12,15 @@ const CategoryCard = ({ category }) => {
 
   return (
     <div
+      id="category-image-container"
       className="text-center"
       onClick={() => {
         handleClick(category);
       }}
-      style={{ marginRight: "29px", width: "12rem" }}
     >
       <img
+        id="category-pic"
         alt="category-pic"
-        className="d-block w-100"
-        style={{
-          borderRadius: "16px",
-          overflow: "hidden",
-          opacity: 1,
-          height: "8rem",
-          objectFit: "cover",
-          cursor: "pointer",
-        }}
         src={category.imageLink}
       ></img>
       <p className="mt-2" style={{ fontSize: "14px", cursor: "pointer" }}>
@@ -53,7 +45,7 @@ const Categories = () => {
   },[]);
 
   return (
-    <div className="d-flex justify-content-center pt-4 pb-4">
+    <div className="pt-4 pb-4" id="categories">
 
       {categoriesData.map((category, index) => {
         return (
